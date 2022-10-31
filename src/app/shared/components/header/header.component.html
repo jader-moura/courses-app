@@ -1,1 +1,15 @@
-<p>header works!</p>
+<header class="main-header d-flex flex-wrap">
+  <a class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+    <img src="../../../../assets/logo.svg" alt="App courses logo" />
+  </a>
+
+  <div class="text-end">
+    <app-button [text]="'Login'" (onClick)="login()"></app-button>
+  </div>
+</header>
+<app-modal
+  [title]="'Message'"
+  [message]="'Message text'"
+  [okButtonText]="'ok'"
+  [cancelButtonText]="'close'"
+></app-modal>

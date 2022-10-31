@@ -1,1 +1,29 @@
-<p>card works!</p>
+<div class="course-card">
+  <h3 class="course-title">{{ title }}</h3>
+  <div class="row">
+    <div class="col-12 col-sm-8">
+      <p>
+        {{ description }}
+      </p>
+    </div>
+    <div class="col-12 col-sm-4">
+      <ul class="course-feature">
+        <li>
+          <span>Authors:</span>
+          {{ authors }}
+        </li>
+        <li>
+          <span>Duration:</span>
+          {{ courseDuration }}
+        </li>
+        <li>
+          <span>Created:</span>
+          {{ creationDate }}
+        </li>
+      </ul>
+      <div class="course-controller">
+        <app-button (onClick)="openCourse()" text="SHOW COURSE"></app-button>
+      </div>
+    </div>
+  </div>
+</div>

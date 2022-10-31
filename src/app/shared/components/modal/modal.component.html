@@ -1,0 +1,20 @@
+<ng-container *ngIf="modalService.modalActive">
+  <div class="modal-background">
+    <div class="modal-container">
+      <section class="modal-header">
+        <h3>{{ title }}</h3>
+        x
+      </section>
+      <section class="modal-content">
+        <p>{{ message }}</p>
+        <article class="modal-controller">
+          <app-button text="{{ okButtonText }}"></app-button>
+          <app-button
+            text="{{ cancelButtonText }}"
+            (onClick)="closeModal()"
+          ></app-button>
+        </article>
+      </section>
+    </div>
+  </div>
+</ng-container>
