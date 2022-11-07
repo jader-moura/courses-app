@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -15,7 +16,7 @@ export class CardComponent implements OnInit {
   @Input() duration: number = 0;
   @Input() authors: string[] = [''];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.courseDuration = `${Math.floor(this.duration / 60)}:${
@@ -24,6 +25,6 @@ export class CardComponent implements OnInit {
   }
 
   openCourse() {
-    alert(`Open course ID: ${this.id}`);
+    this.router.navigate(['/course']);
   }
 }

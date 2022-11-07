@@ -2,12 +2,14 @@
   background: #e5e5e5;
   display: flex;
   justify-content: center;
-  height: calc(100vh - 80px);
   overflow: auto;
+  margin-top: 80px;
+  min-height: 100vh -80px;
 }
 
 .main-content {
   max-width: 1120px;
+  min-width: 85vw;
   flex: 1;
   padding: 4.5rem 0;
 }
