@@ -10,6 +10,7 @@ import { RegistrationComponent } from './features/registration/registration.comp
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     NgbModule,
     FormsModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent, SharedModule],

@@ -1,7 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { mockedCourseList } from './mock';
 import { Course } from './courses';
-import { NgIfContext } from '@angular/common';
 
 @Component({
   selector: 'app-courses',

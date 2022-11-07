@@ -1,1 +1,49 @@
-<p>registration works!</p>
+<app-form title="registration">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <label
+      >Name
+      <input
+        ngModel
+        type="text"
+        required
+        placeholder="Input text"
+        name="name"
+        #name="ngModel"
+      />
+      <span *ngIf="name.invalid && name.touched" class="error-message">
+        Name is required.
+      </span>
+    </label>
+    <label
+      >Email
+      <input
+        ngModel
+        type="text"
+        email
+        required
+        placeholder="Input text"
+        name="email"
+        #email="ngModel"
+      />
+      <span *ngIf="email.invalid && email.touched" class="error-message">
+        Email is required.
+      </span>
+    </label>
+    <label
+      >Password
+      <input
+        ngModel
+        type="text"
+        required
+        placeholder="Input text"
+        name="password"
+        #password="ngModel"
+      />
+      <span *ngIf="password.invalid && password.touched" class="error-message">
+        Password is required.
+      </span>
+    </label>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <p>If you have an account you may <b (click)="goToLogin()">Login</b></p>
+  </form>
+</app-form>

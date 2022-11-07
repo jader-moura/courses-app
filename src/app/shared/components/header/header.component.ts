@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../modal/modal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { ModalService } from '../modal/modal.service';
 export class HeaderComponent implements OnInit {
   authRoute: boolean = false;
 
-  constructor(public modalService: ModalService) {}
+  constructor(public modalService: ModalService, private router: Router) {}
 
   ngOnInit(): void {
     let currentRoute = window.location.href.split('/').pop();
@@ -21,5 +22,9 @@ export class HeaderComponent implements OnInit {
   login() {
     console.log('foi');
     this.modalService.openModal();
+  }
+
+  goHome() {
+    this.router.navigate(['/']);
   }
 }

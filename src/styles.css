@@ -2,3 +2,92 @@
 * {
   font-family: "Open Sans", sans-serif;
 }
+
+.form-wrapper {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+}
+
+.form-wrapper,
+.form-content,
+.form-content form,
+.form-content label {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-wrapper h1 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  text-transform: capitalize;
+  color: #333e48;
+  text-align: center;
+}
+
+.form-content {
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 2rem 1rem 0;
+  gap: 0.5rem;
+  max-width: 585px;
+  min-width: 35vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-content form {
+  gap: 1.5rem;
+  max-width: 286px;
+}
+
+.form-content label {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333e48;
+}
+
+.form-content input {
+  background: #ffffff;
+  height: 45px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.form-content p {
+  height: 40px;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  color: #333e48;
+}
+
+.form-content b {
+  cursor: pointer;
+}
+
+.form-content button {
+  background: #007298;
+  border-radius: 4px;
+  padding: 11px 36px;
+  color: #ffffff;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+}
+
+.form-content .error-message {
+  color: #ff0000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
