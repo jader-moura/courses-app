@@ -1,0 +1,84 @@
+.wrapper {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1.5rem;
+}
+
+.wrapper,
+.content,
+.content form,
+.content label {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper h1 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  text-transform: capitalize;
+  color: #333e48;
+  text-align: center;
+}
+
+.content {
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 3rem 1rem 1rem;
+  gap: 1rem;
+  max-width: 585px;
+  min-width: 35vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.content form {
+  gap: 1.5rem;
+  max-width: 286px;
+}
+
+.content label {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #333e48;
+}
+
+.content input {
+  background: #ffffff;
+  height: 50px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.content p {
+  height: 40px;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  color: #333e48;
+}
+
+button {
+  background: #007298;
+  border-radius: 4px;
+  padding: 11px 36px;
+  color: #ffffff;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+}
+
+.error-message {
+  color: #ff0000;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}

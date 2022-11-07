@@ -1,11 +1,13 @@
 <header class="main-header d-flex flex-wrap">
-  <a class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+  <a class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto logo" routerLink="['/']">
     <img src="../../../../assets/logo.svg" alt="App courses logo" />
   </a>
 
-  <div class="text-end">
-    <app-button [text]="'Login'" (onClick)="login()"></app-button>
-  </div>
+  <ng-container *ngIf="!authRoute">
+    <div class="text-end">
+      <app-button [text]="'Login'" link="login"></app-button>
+    </div>
+  </ng-container>
 </header>
 <app-modal
   [title]="'Message'"

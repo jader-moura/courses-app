@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-button',
@@ -6,16 +7,20 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./button.component.css'],
 })
 export class ButtonComponent implements OnInit {
-  @Input()
-  text: string | undefined;
+  @Input() text: string | undefined;
+  @Input() link: string | undefined;
 
   @Output() onClick = new EventEmitter();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   emitEvent() {
-    this.onClick.emit();
+    if (this.link) {
+      this.router.navigate(['/', this.link]);
+    } else {
+      this.onClick.emit();
+    }
   }
 }

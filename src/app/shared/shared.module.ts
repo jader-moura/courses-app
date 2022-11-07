@@ -7,8 +7,20 @@ import { InfoComponent } from './components/info/info.component';
 import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
-  declarations: [HeaderComponent, ButtonComponent, CardComponent, InfoComponent, ModalComponent],
+  declarations: [
+    HeaderComponent,
+    ButtonComponent,
+    CardComponent,
+    InfoComponent,
+    ModalComponent,
+  ],
   imports: [CommonModule],
-  exports: [HeaderComponent, ButtonComponent, CardComponent, InfoComponent, ModalComponent],
+  exports: [
+    HeaderComponent,
+    ButtonComponent,
+    CardComponent,
+    InfoComponent,
+    ModalComponent,
+  ],
 })
 export class SharedModule {}
