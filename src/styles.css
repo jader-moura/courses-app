@@ -68,6 +68,10 @@
   padding: 1rem;
 }
 
+.form-content input.input-error {
+  border-color: #ff0000;
+}
+
 .form-content textarea {
   background: #ffffff;
   min-height: 152px;

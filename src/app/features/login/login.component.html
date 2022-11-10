@@ -11,12 +11,14 @@
         type="text"
         email
         required
+        appEmail
         placeholder="Input text"
         name="email"
         #email="ngModel"
+        [ngClass]="{ 'input-error': email.invalid && email.touched }"
       />
       <span *ngIf="email.invalid && email.touched" class="error-message">
-        Email is required.
+        Email is required
       </span>
     </label>
     <label
@@ -28,6 +30,7 @@
         placeholder="Input text"
         name="password"
         #password="ngModel"
+        [ngClass]="{ 'input-error': password.invalid && password.touched }"
       />
       <span *ngIf="password.invalid && password.touched" class="error-message">
         Password is required.
