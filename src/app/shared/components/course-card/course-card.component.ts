@@ -15,6 +15,7 @@ export class CardComponent implements OnInit {
   @Input() creationDate: string = '';
   @Input() duration: number = 0;
   @Input() authors: string[] = [''];
+  @Input() editable: boolean = false;
 
   constructor(private router: Router) {}
 
