@@ -38,10 +38,6 @@
   justify-content: center;
 }
 
-.form-content form {
-  gap: 1.5rem;
-}
-
 .form-content section {
   display: flex;
   align-items: flex-end;
@@ -58,6 +54,8 @@
   font-size: 14px;
   line-height: 20px;
   color: #333e48;
+  position: relative;
+  padding-bottom: 1.5rem;
 }
 
 .form-content input {
@@ -66,6 +64,7 @@
   border: 1px solid #cfcfcf;
   border-radius: 4px;
   padding: 1rem;
+  min-width: 320px;
 }
 
 .form-content input.input-error {
@@ -104,13 +103,16 @@
   text-align: center;
   text-transform: uppercase;
   border: none;
+  margin: 0.5rem 0;
 }
 
-.form-content .error-message {
+.form-content span.error-message {
   color: #ff0000;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
+  position: absolute;
+  bottom: 0.4rem;
 }
 
 .form-content h3 {
