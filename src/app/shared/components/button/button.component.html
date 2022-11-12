@@ -1,3 +1,8 @@
-<button type="button" class="btn custom-btn" (click)="emitEvent()">
+<button
+  type="button"
+  class="btn custom-btn"
+  [disabled]="disabled"
+  (click)="emitEvent()"
+>
   {{ text }}
 </button>

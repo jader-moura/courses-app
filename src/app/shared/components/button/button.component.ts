@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class ButtonComponent implements OnInit {
   @Input() text: string | undefined;
   @Input() link: string | undefined;
+  @Input() disabled: boolean = false;
 
   @Output() onClick = new EventEmitter();
 

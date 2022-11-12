@@ -38,9 +38,9 @@
   justify-content: center;
 }
 
-.form-content section {
+.form-content section.form-sub-group {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: flex-end;
   gap: 1rem;
 }
@@ -67,7 +67,8 @@
   min-width: 320px;
 }
 
-.form-content input.input-error {
+.form-content input.input-error,
+.form-content textarea.input-error {
   border-color: #ff0000;
 }
 
