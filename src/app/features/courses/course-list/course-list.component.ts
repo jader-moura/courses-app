@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from '../../dtos/courses';
+import { Course } from '../../../shared/dtos/courses';
 
 @Component({
   selector: 'app-course-list',

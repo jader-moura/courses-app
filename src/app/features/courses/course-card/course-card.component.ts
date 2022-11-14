@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
 })
-export class CardComponent implements OnInit {
+export class CourseCardComponent implements OnInit {
   courseDuration: string = '';
 
   @Input() id: string = '';

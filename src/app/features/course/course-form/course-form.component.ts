@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -17,7 +23,7 @@ export class CourseFormComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      duration: new FormControl('', Validators.required),
+      duration: new FormControl(0, this.durationValidator),
       authors: new FormArray([]),
       newAuthor: new FormControl(
         '',
@@ -49,5 +55,13 @@ export class CourseFormComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/']);
+  }
+
+  durationValidator(control: AbstractControl) {
+    if (control.value > 0) {
+      return null;
+    } else {
+      return { duration: true };
+    }
   }
 }
