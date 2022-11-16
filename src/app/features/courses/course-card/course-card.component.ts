@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,9 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
 })
-export class CourseCardComponent implements OnInit {
-  courseDuration: string = '';
-
+export class CourseCardComponent {
   @Input() id: string = '';
   @Input() title: string = '';
   @Input() description: string = '';
@@ -18,12 +16,6 @@ export class CourseCardComponent implements OnInit {
   @Input() editable: boolean = false;
 
   constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    this.courseDuration = `${Math.floor(this.duration / 60)}:${
-      this.duration % 60
-    } hours`;
-  }
 
   openCourse() {
     this.router.navigate(['/course']);
