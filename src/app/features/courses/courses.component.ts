@@ -21,4 +21,8 @@ export class CoursesComponent implements OnInit {
       .then((response) => response.json())
       .then((data) => console.log(data));
   }
+
+  onSearch(event: any) {
+    console.log(event);
+  }
 }
