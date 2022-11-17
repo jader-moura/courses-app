@@ -7,11 +7,17 @@ export class DurationPipe implements PipeTransform {
       return ('0' + value).slice(-2);
     }
 
-    return (
-      roundValue(Math.floor(Number(value) / 60)) +
-      ':' +
-      roundValue(Number(value) % 60) +
-      'hours'
-    );
+    if (value > 0) {
+      return (
+        roundValue(Math.floor(Number(value) / 60)) +
+        ':' +
+        roundValue(Number(value) % 60) +
+        'hours'
+      );
+    } else if (value && value <= 0) {
+      return 'Insert a valid amount';
+    } else {
+      return '00:00 hours';
+    }
   }
 }

@@ -23,7 +23,7 @@ export class CourseFormComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      duration: new FormControl(0, this.durationValidator),
+      duration: new FormControl(null, this.durationValidator),
       authors: new FormArray([]),
       newAuthor: new FormControl(
         '',

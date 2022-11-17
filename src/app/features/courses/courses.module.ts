@@ -5,6 +5,7 @@ import { CoursesComponent } from './courses.component';
 import { CourseListModule } from './course-list/course-list.module';
 import { CourseCardModule } from './course-card/course-card.module';
 import { SearchModule } from 'src/app/shared/components/search/search.module';
+import { CoursesRoutingModule } from './courses-routing.module';
 
 @NgModule({
   declarations: [CoursesComponent],
@@ -15,6 +16,7 @@ import { SearchModule } from 'src/app/shared/components/search/search.module';
     CourseListModule,
     CourseCardModule,
     SearchModule,
+    CoursesRoutingModule,
   ],
 })
 export class CoursesModule {}
