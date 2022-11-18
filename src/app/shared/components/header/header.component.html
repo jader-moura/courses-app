@@ -1,13 +1,19 @@
 <header class="main-header d-flex flex-wrap">
-  <a class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto logo" (click)="goHome()">
+  <a
+    class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto logo"
+    routerLink="/courses"
+  >
     <img src="../../../../assets/logo.svg" alt="App courses logo" />
   </a>
 
-  <ng-container>
-    <div class="text-end">
+  <div class="text-end">
+    <ng-container *ngIf="authorized === true; else noAuthorized">
+      <app-button [text]="'Logout'" (onClick)="logout()"></app-button>
+    </ng-container>
+    <ng-template #noAuthorized>
       <app-button [text]="'Login'" link="login"></app-button>
-    </div>
-  </ng-container>
+    </ng-template>
+  </div>
 </header>
 <app-modal
   [title]="'Message'"

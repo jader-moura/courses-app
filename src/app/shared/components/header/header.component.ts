@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../modal/modal.service';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(public modalService: ModalService, private router: Router) {}
+  authorized: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(private authService: AuthService) {}
 
-  login() {
-    console.log('foi');
-    this.modalService.openModal();
+  ngOnInit(): void {
+    this.authService.isAuthorized.subscribe((x) => (this.authorized = x));
   }
 
-  goHome() {
-    this.router.navigate(['/']);
+  logout() {
+    this.authService.logout();
   }
 }
