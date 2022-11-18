@@ -8,16 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  authRoute: boolean = false;
-
   constructor(public modalService: ModalService, private router: Router) {}
 
-  ngOnInit(): void {
-    let currentRoute = window.location.href.split('/').pop();
-    if (currentRoute === 'login' || currentRoute === 'registration') {
-      this.authRoute = true;
-    }
-  }
+  ngOnInit(): void {}
 
   login() {
     console.log('foi');

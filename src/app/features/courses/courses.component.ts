@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { mockedCourseList } from './mock';
-import { Course } from '../../shared/dtos/courses';
+import { CoursesService } from 'src/app/services/courses.service';
+import { CourseProps } from 'src/app/shared/dtos/courses';
 
 @Component({
   selector: 'app-courses',
@@ -8,18 +9,18 @@ import { Course } from '../../shared/dtos/courses';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-  coursesResult$: Course[] = [];
+  coursesResult$: CourseProps[] = [];
 
-  constructor() {}
+  constructor(private coursesService: CoursesService) {}
 
   ngOnInit(): void {
-    this.coursesResult$ = mockedCourseList;
+    this.getCourses();
   }
 
   getCourses() {
-    fetch('./mock')
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    this.coursesService
+      .getAll()
+      .subscribe((courses: any) => (this.coursesResult$ = courses.result));
   }
 
   onSearch(event: any) {

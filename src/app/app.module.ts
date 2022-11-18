@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
     NgbModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
   ],
   exports: [
     BrowserModule,

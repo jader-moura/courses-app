@@ -20,7 +20,7 @@ export class AuthService {
     this.isAuthorized = this.sessionStorage.getToken() !== null ? true : false;
   }
 
-  login(loginPayload: loginPayloadProps) {
+  login(loginPayload: LoginPayloadProps) {
     this.httpClient.post('/login', loginPayload).subscribe(
       (data) => this.sessionStorage.setToken(data),
       (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
@@ -39,7 +39,7 @@ export class AuthService {
     );
   }
 
-  register(registerPayload: registerPayloadProps) {
+  register(registerPayload: RegisterPayloadProps) {
     this.httpClient.post('/register', registerPayload).subscribe(
       (data) => this.sessionStorage.setToken(data),
       (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
@@ -47,13 +47,13 @@ export class AuthService {
   }
 }
 
-interface loginPayloadProps {
+interface LoginPayloadProps {
   name?: string;
   email: string;
   password: string;
 }
 
-interface registerPayloadProps {
+interface RegisterPayloadProps {
   name: string;
   email: string;
   password: string;
