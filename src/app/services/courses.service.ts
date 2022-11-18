@@ -16,18 +16,21 @@ export class CoursesService {
   }
 
   createCourse(course: CourseProps) {
-    this.httpClient.post('/courses/add', course);
+    this.httpClient.post('http://localhost:4000/courses/add', course);
   }
 
   editCourse(course: CourseProps) {
-    this.httpClient.put(`/courses/${course.id}`, course);
+    this.httpClient.put(`http://localhost:4000/courses/${course.id}`, course);
   }
 
   getCourse(search: any) {
     const getOptions = {
       params: search,
     };
-    return this.httpClient.get('/courses/filter', getOptions);
+    return this.httpClient.get(
+      'http://localhost:4000/courses/filter',
+      getOptions
+    );
   }
 
   deleteCourse(course: CourseProps) {

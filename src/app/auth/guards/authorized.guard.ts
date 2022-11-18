@@ -1,5 +1,3 @@
-// Use authorized guard for /courses, /course/add, /course/edit/:id and /course/:id routes.
-
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
