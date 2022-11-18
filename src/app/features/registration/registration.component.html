@@ -1,5 +1,8 @@
 <app-form title="registration">
-  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <form
+    #registrationForm="ngForm"
+    (ngSubmit)="onSubmit(registrationForm.value)"
+  >
     <label
       >Name
       <input
@@ -48,7 +51,12 @@
         Password is required.
       </span>
     </label>
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-    <p>If you have an account you may <b (click)="goToLogin()">Login</b></p>
+    <button type="submit" [disabled]="registrationForm.invalid">
+      Register
+    </button>
+    <p>
+      If you have an account you may
+      <a class="router-link" routerLink="/login">Login</a>
+    </p>
   </form>
 </app-form>

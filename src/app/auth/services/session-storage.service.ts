@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class SessionStorageService {
-  constructor(@Inject('Window') public window: Window) {}
+  constructor() {}
 
   setToken(token: any) {
     window.localStorage.setItem('token', token);

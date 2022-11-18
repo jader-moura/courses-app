@@ -5,6 +5,11 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
+import {
+  LoginPayloadProps,
+  RegisterPayloadProps,
+} from 'src/app/shared/dtos/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +19,7 @@ export class AuthService {
   authorization: string = '';
 
   constructor(
+    private router: Router,
     private httpClient: HttpClient,
     private sessionStorage: SessionStorageService
   ) {
@@ -21,8 +27,8 @@ export class AuthService {
   }
 
   login(loginPayload: LoginPayloadProps) {
-    this.httpClient.post('/login', loginPayload).subscribe(
-      (data) => this.sessionStorage.setToken(data),
+    this.httpClient.post('http://localhost:4000/login', loginPayload).subscribe(
+      ({ result }: any) => this.sessionStorage.setToken(result),
       (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
     );
   }
@@ -33,28 +39,25 @@ export class AuthService {
       this.sessionStorage.getToken() || ''
     );
 
-    this.httpClient.delete('/logout', { headers: httpHeaders }).subscribe(
-      () => this.sessionStorage.deleteToken(),
-      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
-    );
+    this.httpClient
+      .delete('http://localhost:4000/logout', { headers: httpHeaders })
+      .subscribe(
+        () => this.sessionStorage.deleteToken(),
+        (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      );
   }
 
   register(registerPayload: RegisterPayloadProps) {
-    this.httpClient.post('/register', registerPayload).subscribe(
-      (data) => this.sessionStorage.setToken(data),
-      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
-    );
+    this.httpClient
+      .post('http://localhost:4000/register', registerPayload)
+      .subscribe(
+        ({ successful }: any) => {
+          if (successful) {
+            alert('Account created with success, please login');
+          }
+          this.router.navigate(['/login']);
+        },
+        (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      );
   }
-}
-
-interface LoginPayloadProps {
-  name?: string;
-  email: string;
-  password: string;
-}
-
-interface RegisterPayloadProps {
-  name: string;
-  email: string;
-  password: string;
 }
