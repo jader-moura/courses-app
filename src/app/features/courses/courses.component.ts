@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { mockedCourseList } from './mock';
 import { CoursesService } from 'src/app/services/courses.service';
 import { CourseProps } from 'src/app/shared/dtos/courses';
 
@@ -10,6 +9,7 @@ import { CourseProps } from 'src/app/shared/dtos/courses';
 })
 export class CoursesComponent implements OnInit {
   coursesResult$: CourseProps[] = [];
+  search: string = '';
 
   constructor(private coursesService: CoursesService) {}
 
@@ -23,7 +23,10 @@ export class CoursesComponent implements OnInit {
       .subscribe((courses: any) => (this.coursesResult$ = courses.result));
   }
 
-  onSearch(event: any) {
-    console.log(event);
+  onSearch({ search }: any) {
+    this.search = search;
+    this.coursesService
+      .getAll(search)
+      .subscribe((courses: any) => (this.coursesResult$ = courses.result));
   }
 }
