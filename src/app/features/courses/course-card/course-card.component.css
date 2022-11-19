@@ -48,3 +48,16 @@ p {
 .course-feature li > span {
   font-weight: 700;
 }
+
+.course-controller {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-btn {
+  background: #007298;
+  border-radius: 4px;
+  padding: 11px 16px;
+  color: #ffffff;
+  cursor: pointer;
+}

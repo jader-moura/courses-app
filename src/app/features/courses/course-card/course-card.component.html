@@ -22,7 +22,19 @@
         </li>
       </ul>
       <div class="course-controller">
-        <app-button link="/course/1" text="SHOW COURSE"></app-button>
+        <app-button (onClick)="openCourse()" text="SHOW COURSE"></app-button>
+        <fa-icon
+          *ngIf="isAdmin"
+          [icon]="faPencilAlt"
+          (click)="openCourse('/edit')"
+          class="icon-btn"
+        ></fa-icon>
+        <fa-icon
+          *ngIf="isAdmin"
+          [icon]="faTrash"
+          (click)="removeCourse()"
+          class="icon-btn"
+        ></fa-icon>
       </div>
     </div>
   </div>

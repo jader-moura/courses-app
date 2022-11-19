@@ -54,7 +54,12 @@ export class AuthService {
           this.sessionStorage.deleteToken();
           this.router.navigate(['/login']);
         },
-        (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+        ({ status }: HttpErrorResponse) => {
+          if (status === 401) {
+            this.sessionStorage.deleteToken();
+            this.router.navigate(['/login']);
+          }
+        }
       );
   }
 
