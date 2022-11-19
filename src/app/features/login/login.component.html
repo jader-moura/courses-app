@@ -1,1 +1,45 @@
-<p>login works!</p>
+<app-form title="login">
+  <form
+    class="custom-form"
+    #loginForm="ngForm"
+    (ngSubmit)="onSubmit(loginForm.value)"
+  >
+    <label
+      >Email
+      <input
+        ngModel
+        type="text"
+        email
+        required
+        appEmail
+        placeholder="Input text"
+        name="email"
+        #email="ngModel"
+        [ngClass]="{ 'input-error': email.invalid && email.touched }"
+      />
+      <span *ngIf="email.invalid && email.touched" class="error-message">
+        Email is required
+      </span>
+    </label>
+    <label
+      >Password
+      <input
+        ngModel
+        type="text"
+        required
+        placeholder="Input text"
+        name="password"
+        #password="ngModel"
+        [ngClass]="{ 'input-error': password.invalid && password.touched }"
+      />
+      <span *ngIf="password.invalid && password.touched" class="error-message">
+        Password is required.
+      </span>
+    </label>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <p>
+      If you don't have an account you may
+      <b (click)="goToRegistration()">Registration</b>
+    </p>
+  </form>
+</app-form>

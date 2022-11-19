@@ -1,1 +1,8 @@
-<p>button works!</p>
+<button
+  type="button"
+  class="btn custom-btn"
+  [disabled]="disabled"
+  (click)="emitEvent()"
+>
+  {{ text }}
+</button>

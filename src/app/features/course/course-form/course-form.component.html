@@ -1,0 +1,129 @@
+<app-form title="course edit/create page">
+  <form
+    class="custom-form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit(form.value)"
+  >
+    <h3>Main Info</h3>
+
+    <label
+      >Title
+      <input
+        type="text"
+        placeholder="Input text"
+        name="title"
+        formControlName="title"
+        [ngClass]="{
+          'input-error': form.get('title')?.errors && form.get('title')?.touched
+        }"
+      />
+      <span
+        *ngIf="form.get('title')?.errors && form.get('title')?.touched"
+        class="error-message"
+      >
+        Title is required
+      </span>
+    </label>
+    <label>
+      Description
+      <textarea
+        type="text"
+        placeholder="Input text"
+        name="description"
+        formControlName="description"
+        [ngClass]="{
+          'input-error':
+            form.get('description')?.errors && form.get('description')?.touched
+        }"
+      ></textarea>
+      <span
+        *ngIf="
+          form.get('description')?.errors && form.get('description')?.touched
+        "
+        class="error-message"
+      >
+        Description is required
+      </span>
+    </label>
+
+    <div>
+      <h3>Authors</h3>
+      <section class="form-sub-group">
+        <label>
+          Author Name
+          <input
+            type="text"
+            placeholder="Input text"
+            name="newAuthor"
+            formControlName="newAuthor"
+            [ngClass]="{
+              'input-error':
+                form.get('newAuthor')?.errors && form.get('newAuthor')?.touched
+            }"
+          />
+          <span
+            *ngIf="
+              form.get('newAuthor')?.errors && form.get('newAuthor')?.touched
+            "
+            class="error-message"
+          >
+            Insert a valid name
+          </span>
+        </label>
+        <button (click)="addAuthor(form.get('newAuthor')?.value)" type="button">
+          Create Author
+        </button>
+      </section>
+    </div>
+
+    <section
+      *ngIf="form.get('authors')?.value.length > 0"
+      class="author-wrapper"
+    >
+      <label>Authors List</label>
+      <div class="authors-list">
+        <span
+          class="author-name"
+          *ngFor="let author of form.get('authors')?.value; index as i"
+        >
+          {{ author }}
+          <fa-icon
+            [icon]="faTimes"
+            (click)="removeAuthor(i)"
+            class="icon-btn"
+          ></fa-icon>
+        </span>
+      </div>
+    </section>
+
+    <h3>Duration</h3>
+
+    <section class="form-sub-group">
+      <label>
+        Duration
+        <input
+          type="number"
+          placeholder="Input text"
+          name="duration"
+          formControlName="duration"
+          [ngClass]="{
+            'input-error':
+              form.get('duration')?.errors && form.get('duration')?.touched
+          }"
+        />
+        <span
+          *ngIf="form.get('duration')?.errors && form.get('duration')?.touched"
+          class="error-message"
+        >
+          Duration is required
+        </span>
+      </label>
+      00:00 hours
+    </section>
+
+    <section class="form-sub-group">
+      <app-button (onClick)="goBack()" text="Cancel"></app-button>
+      <button type="submit">Create Course</button>
+    </section>
+  </form>
+</app-form>

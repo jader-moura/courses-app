@@ -1,0 +1,45 @@
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.modal-container {
+  width: 500px;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #cfcfcf;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #b5b5b5;
+}
+
+.modal-header h3 {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.modal-content {
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modal-controller {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

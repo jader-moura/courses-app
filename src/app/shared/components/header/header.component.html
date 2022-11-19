@@ -1,1 +1,17 @@
-<p>header works!</p>
+<header class="main-header d-flex flex-wrap">
+  <a class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto logo" (click)="goHome()">
+    <img src="../../../../assets/logo.svg" alt="App courses logo" />
+  </a>
+
+  <ng-container *ngIf="!authRoute">
+    <div class="text-end">
+      <app-button [text]="'Login'" link="login"></app-button>
+    </div>
+  </ng-container>
+</header>
+<app-modal
+  [title]="'Message'"
+  [message]="'Message text'"
+  [okButtonText]="'ok'"
+  [cancelButtonText]="'close'"
+></app-modal>
