@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CourseProps } from '../shared/dtos/courses';
@@ -23,11 +23,27 @@ export class CoursesService {
   }
 
   createCourse(course: CourseProps) {
-    this.httpClient.post('http://localhost:4000/courses/add', course);
+    this.httpClient.post('http://localhost:4000/courses/add', course).subscribe(
+      ({ successful }: any) => {
+        if (successful) {
+          alert('Course created with success.');
+        }
+      },
+      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+    );
   }
 
   editCourse(course: CourseProps) {
-    this.httpClient.put(`http://localhost:4000/courses/${course.id}`, course);
+    this.httpClient
+      .put(`http://localhost:4000/courses/${course.id}`, course)
+      .subscribe(
+        ({ successful }: any) => {
+          if (successful) {
+            alert('Course edited with success.');
+          }
+        },
+        (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      );
   }
 
   getCourse(course: CourseProps) {
@@ -35,6 +51,13 @@ export class CoursesService {
   }
 
   deleteCourse(courseId: string) {
-    this.httpClient.delete(`/courses/${courseId}`);
+    this.httpClient.delete(`/courses/${courseId}`).subscribe(
+      ({ successful }: any) => {
+        if (successful) {
+          alert('Course removed with success.');
+        }
+      },
+      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+    );
   }
 }

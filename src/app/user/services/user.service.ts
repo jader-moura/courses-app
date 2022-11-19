@@ -24,7 +24,7 @@ export class UserService {
       'Authorization',
       this.sessionStorage.getToken() || ''
     );
-    console.log('foi');
+
     this.httpClient
       .get('http://localhost:4000/users/me', { headers: httpHeaders })
       .subscribe(({ result }: any) => {

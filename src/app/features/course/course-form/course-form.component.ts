@@ -6,8 +6,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { CoursesService } from 'src/app/services/courses.service';
+import { CourseProps } from 'src/app/shared/dtos/courses';
 
 @Component({
   selector: 'app-course-form',
@@ -17,9 +19,18 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 export class CourseFormComponent implements OnInit {
   form!: FormGroup;
   faTimes = faTimes;
+  formType: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private coursesService: CoursesService
+  ) {}
   ngOnInit(): void {
+    this.route.url.subscribe((url: any) => {
+      this.formType = url[0].path;
+    });
+
     this.form = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -27,10 +38,7 @@ export class CourseFormComponent implements OnInit {
       authors: new FormArray([]),
       newAuthor: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern('^[A-Za-z0-9]+$'),
-        ])
+        Validators.compose([Validators.pattern('^[A-Za-z0-9]+$')])
       ),
     });
   }
@@ -49,8 +57,13 @@ export class CourseFormComponent implements OnInit {
     (<FormArray>this.form.controls['authors']).removeAt(authorIndex);
   }
 
-  onSubmit(value: any) {
-    alert(JSON.stringify(value));
+  onSubmit(value: CourseProps) {
+    if (this.formType === 'add') {
+      this.coursesService.createCourse(value);
+    }
+    if (this.formType === 'edit') {
+      this.coursesService.editCourse(value);
+    }
   }
 
   goBack() {

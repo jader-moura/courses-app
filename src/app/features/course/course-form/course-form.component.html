@@ -124,7 +124,11 @@
 
     <section class="form-sub-group">
       <app-button (onClick)="goBack()" text="Cancel"></app-button>
-      <button type="submit">Create Course</button>
+      <app-button
+        type="submit"
+        [disabled]="form.invalid"
+        text="Create Course"
+      ></app-button>
     </section>
   </form>
 </app-form>
