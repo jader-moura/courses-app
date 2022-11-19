@@ -34,7 +34,7 @@ export class CoursesService {
     return this.httpClient.get(`http://localhost:4000/courses/${course.id}`);
   }
 
-  deleteCourse(course: CourseProps) {
-    this.httpClient.delete(`/courses/${course.id}`);
+  deleteCourse(courseId: string) {
+    this.httpClient.delete(`/courses/${courseId}`);
   }
 }

@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ModalService } from 'src/app/shared/components/modal/modal.service';
+import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
   selector: 'app-card',
@@ -23,6 +25,8 @@ export class CourseCardComponent {
 
   constructor(
     private router: Router,
+    private courseService: CoursesService,
+    public modalService: ModalService,
     private userStoreService: UserStoreService
   ) {
     this.isAdmin = this.userStoreService.isAdmin;
@@ -32,5 +36,11 @@ export class CourseCardComponent {
     this.router.navigate([`/course${type}/${this.id}`]);
   }
 
-  removeCourse() {}
+  openRemoveCourseModal() {
+    this.modalService.openModal();
+  }
+
+  removeCourse() {
+    this.courseService.deleteCourse(this.id);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalService } from './modal.service';
 
 @Component({
@@ -12,11 +12,18 @@ export class ModalComponent implements OnInit {
   @Input() okButtonText: string = '';
   @Input() cancelButtonText: string = '';
 
+  @Output() callback = new EventEmitter();
+
   constructor(public modalService: ModalService) {}
 
   ngOnInit(): void {}
 
   closeModal() {
     this.modalService.closeModal();
+  }
+
+  runCallback() {
+    this.callback.emit();
+    this.closeModal();
   }
 }

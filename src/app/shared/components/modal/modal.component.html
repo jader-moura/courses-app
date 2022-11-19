@@ -8,7 +8,10 @@
       <section class="modal-content">
         <p>{{ message }}</p>
         <article class="modal-controller">
-          <app-button text="{{ okButtonText }}"></app-button>
+          <app-button
+            (onClick)="runCallback()"
+            text="{{ okButtonText }}"
+          ></app-button>
           <app-button
             text="{{ cancelButtonText }}"
             (onClick)="closeModal()"

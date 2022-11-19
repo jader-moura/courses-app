@@ -32,10 +32,17 @@
         <fa-icon
           *ngIf="isAdmin"
           [icon]="faTrash"
-          (click)="removeCourse()"
+          (click)="openRemoveCourseModal()"
           class="icon-btn"
         ></fa-icon>
       </div>
     </div>
   </div>
 </div>
+<app-modal
+  [title]="'Remove course'"
+  [message]="'Do you really want to remove this course?'"
+  [okButtonText]="'Remove Course'"
+  [cancelButtonText]="'Cancel'"
+  (callback)="removeCourse()"
+></app-modal>
