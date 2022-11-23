@@ -14,7 +14,7 @@ import { UserState } from './user.reducer';
 export class UserEffects {
   getCurrentUser$ = createEffect((): any =>
     this.actions$.pipe(
-      ofType(requestCurrentUser),
+      ofType(requestCurrentUser.type),
       mergeMap(
         () =>
           this.userService.getUser().pipe(

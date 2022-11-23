@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { UserState } from './user.reducer';
 
-export const requestCurrentUser: any = createAction('[User API] Current User');
+export const requestCurrentUser = createAction('[User API] Current User');
 
 export const requestCurrentUserSuccess = createAction(
   '[User API] Current User Success',
