@@ -5,5 +5,4 @@ interface State {}
 
 export const reducers: ActionReducerMap<State> = {};
 
-@Injectable()
-export class Effects {}
+export const effects = [];

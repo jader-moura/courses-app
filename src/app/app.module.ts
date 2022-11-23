@@ -10,8 +10,10 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { StoreModule } from '@ngrx/store';
-import { Effects, reducers } from './store';
+import { effects, reducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
+import { userInitialState, userReducer } from './user/store/user.reducer';
+import { UserEffects } from './user/store/user.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +27,11 @@ import { EffectsModule } from '@ngrx/effects';
     RouterModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([Effects]),
+    EffectsModule.forRoot(effects),
+    StoreModule.forFeature('user', userReducer, {
+      initialState: userInitialState,
+    }),
+    EffectsModule.forFeature([UserEffects]),
   ],
   exports: [
     BrowserModule,
