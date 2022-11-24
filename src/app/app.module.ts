@@ -32,6 +32,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: 'Window', useValue: window },
   ],
   bootstrap: [AppComponent, SharedModule],
 })

@@ -1,14 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, mergeMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorsService {
   constructor(private httpClient: HttpClient) {}
-  getAll(): Observable<string[]> {
-    return this.httpClient.get<string[]>('http://localhost:4000/authors/all');
+
+  getAll(): Observable<any> {
+    return this.httpClient
+      .get<any>('http://localhost:4000/authors/all')
+      .pipe(mergeMap((data: any) => data.results));
   }
 
   addAuthor(author: { name: string }) {

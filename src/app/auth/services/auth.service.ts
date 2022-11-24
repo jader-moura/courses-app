@@ -16,8 +16,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private isAuthorizedSubject: BehaviorSubject<boolean>;
-  public isAuthorized: Observable<boolean>;
+  private isAuthorized$$: BehaviorSubject<boolean>;
+  public isAuthorized$: Observable<boolean>;
   authorization: string = '';
 
   constructor(
@@ -25,10 +25,10 @@ export class AuthService {
     private httpClient: HttpClient,
     private sessionStorage: SessionStorageService
   ) {
-    this.isAuthorizedSubject = new BehaviorSubject<boolean>(
+    this.isAuthorized$$ = new BehaviorSubject<boolean>(
       this.sessionStorage.getToken() !== null ? true : false
     );
-    this.isAuthorized = this.isAuthorizedSubject.asObservable();
+    this.isAuthorized$ = this.isAuthorized$$.asObservable();
   }
 
   login(loginPayload: LoginPayloadProps) {

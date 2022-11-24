@@ -1,18 +1,21 @@
 import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionStorageService {
-  constructor() {}
+  constructor(@Inject('Window') private window: Window) {
+    // this.window = this.document.defaultView;
+  }
 
   setToken(token: any) {
-    window.localStorage.setItem('token', token);
+    this.window?.localStorage.setItem('token', token);
   }
   getToken() {
-    return window.localStorage.getItem('token');
+    return this.window?.localStorage.getItem('token');
   }
   deleteToken() {
-    window.localStorage.removeItem('token');
+    this.window?.localStorage.removeItem('token');
   }
 }

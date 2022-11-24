@@ -12,7 +12,9 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.isAuthorized.subscribe((data) => (this.authorized = data));
+    this.authService.isAuthorized$.subscribe(
+      (data) => (this.authorized = data)
+    );
   }
 
   logout() {
