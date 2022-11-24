@@ -6,13 +6,12 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class UserStoreService {
-  constructor(
-    private userService: UserService,
-    private isAdmin$$: BehaviorSubject<boolean>,
-    private name$$: BehaviorSubject<string>,
-    public name$: Observable<string>,
-    public isAdmin$: Observable<boolean>
-  ) {
+  private isAdmin$$: BehaviorSubject<boolean>;
+  private name$$: BehaviorSubject<string>;
+  public name$: Observable<string>;
+  public isAdmin$: Observable<boolean>;
+
+  constructor(private userService: UserService) {
     this.isAdmin$$ = new BehaviorSubject(false);
     this.name$$ = new BehaviorSubject('');
 
