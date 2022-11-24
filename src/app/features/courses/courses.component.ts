@@ -13,14 +13,15 @@ export class CoursesComponent implements OnInit {
   search: string = '';
 
   constructor(
-    private coursesStoreService: CoursesStoreService,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private coursesStoreService: CoursesStoreService
   ) {}
 
   ngOnInit(): void {
-    this.coursesStoreService.courses$.subscribe(
-      (data) => (this.coursesResult$ = data)
-    );
+    this.coursesStoreService.courses$.subscribe((data) => {
+      this.coursesResult$ = data;
+      console.log(data);
+    });
   }
 
   onSearch({ search }: any) {

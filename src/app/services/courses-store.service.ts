@@ -7,20 +7,16 @@ import { CoursesService } from './courses.service';
   providedIn: 'root',
 })
 export class CoursesStoreService {
-  constructor(
-    private isLoading$$: BehaviorSubject<boolean>,
-    private courses$$: BehaviorSubject<CourseProps[]>,
-    public isLoading$: Observable<boolean>,
-    public courses$: Observable<CourseProps[]>,
-    private courseservice: CoursesService
-  ) {
-    this.isLoading$$ = new BehaviorSubject<boolean>(false);
-    this.courses$$ = new BehaviorSubject<CourseProps[]>([]);
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
+  private courses$$ = new BehaviorSubject<CourseProps[]>([]);
+  public isLoading$: Observable<boolean>;
+  public courses$: Observable<CourseProps[]>;
 
-    this.courseservice.getAll().subscribe((coursesList) => {
-      isLoading$$.next(true);
-      courses$$.next(coursesList);
-      isLoading$$.next(false);
+  constructor(private courseservice: CoursesService) {
+    this.courseservice.getAll().subscribe((coursesList: any) => {
+      this.isLoading$$.next(true);
+      this.courses$$.next(coursesList.result);
+      this.isLoading$$.next(false);
     });
 
     this.isLoading$ = this.isLoading$$.asObservable();
