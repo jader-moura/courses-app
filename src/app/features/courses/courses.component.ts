@@ -1,3 +1,4 @@
+import { CoursesStoreService } from './../../services/courses-store.service';
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from 'src/app/services/courses.service';
 import { CourseProps } from 'src/app/shared/dtos/courses';
@@ -11,16 +12,15 @@ export class CoursesComponent implements OnInit {
   coursesResult$: CourseProps[] = [];
   search: string = '';
 
-  constructor(private coursesService: CoursesService) {}
+  constructor(
+    private coursesStoreService: CoursesStoreService,
+    private coursesService: CoursesService
+  ) {}
 
   ngOnInit(): void {
-    this.getCourses();
-  }
-
-  getCourses() {
-    this.coursesService
-      .getAll()
-      .subscribe((courses: any) => (this.coursesResult$ = courses.result));
+    this.coursesStoreService.courses$.subscribe(
+      (data) => (this.coursesResult$ = data)
+    );
   }
 
   onSearch({ search }: any) {

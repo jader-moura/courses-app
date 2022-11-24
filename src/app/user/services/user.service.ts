@@ -7,11 +7,6 @@ import { SessionStorageService } from 'src/app/auth/services/session-storage.ser
   providedIn: 'root',
 })
 export class UserService {
-  private name$$!: BehaviorSubject<string>;
-  public name$!: Observable<string>;
-  private isAdmin$$!: BehaviorSubject<boolean>;
-  public isAdmin$!: Observable<boolean>;
-
   constructor(
     private sessionStorage: SessionStorageService,
     private httpClient: HttpClient
@@ -19,20 +14,14 @@ export class UserService {
     this.getUser();
   }
 
-  getUser() {
+  getUser(): Observable<any> {
     let httpHeaders = new HttpHeaders().set(
       'Authorization',
       this.sessionStorage.getToken() || ''
     );
 
-    this.httpClient
-      .get('http://localhost:4000/users/me', { headers: httpHeaders })
-      .subscribe(({ result }: any) => {
-        this.name$$ = new BehaviorSubject<string>(result.name);
-        this.name$ = this.name$$.asObservable();
-
-        this.isAdmin$$ = new BehaviorSubject<boolean>(result.role === 'admin');
-        this.isAdmin$ = this.isAdmin$$.asObservable();
-      });
+    return this.httpClient.get('http://localhost:4000/users/me', {
+      headers: httpHeaders,
+    });
   }
 }

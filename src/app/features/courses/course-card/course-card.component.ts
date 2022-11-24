@@ -11,7 +11,7 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./course-card.component.css'],
 })
 export class CourseCardComponent {
-  isAdmin: boolean;
+  isAdmin: boolean = false;
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
 
@@ -29,7 +29,7 @@ export class CourseCardComponent {
     public modalService: ModalService,
     private userStoreService: UserStoreService
   ) {
-    this.isAdmin = this.userStoreService.isAdmin;
+    this.userStoreService.isAdmin$.subscribe((data) => (this.isAdmin = data));
   }
 
   openCourse(type: string = '') {
