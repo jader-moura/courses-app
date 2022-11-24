@@ -67,7 +67,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/courses']);
   }
 
   durationValidator(control: AbstractControl) {

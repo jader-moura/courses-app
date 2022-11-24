@@ -17,7 +17,7 @@ export class AuthorsService {
   addAuthor(author: { name: string }) {
     this.httpClient.post('http://localhost:4000/authors/add', author).subscribe(
       () => alert('Author created with success'),
-      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
     );
   }
 }

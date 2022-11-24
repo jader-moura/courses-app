@@ -29,7 +29,7 @@ export class CoursesService {
           alert('Course created with success.');
         }
       },
-      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
     );
   }
 
@@ -42,7 +42,7 @@ export class CoursesService {
             alert('Course edited with success.');
           }
         },
-        (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
       );
   }
 
@@ -57,7 +57,7 @@ export class CoursesService {
           alert('Course removed with success.');
         }
       },
-      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
     );
   }
 }

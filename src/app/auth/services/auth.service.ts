@@ -37,7 +37,7 @@ export class AuthService {
         this.sessionStorage.setToken(result);
         this.router.navigate(['/courses']);
       },
-      (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
     );
   }
 
@@ -73,7 +73,7 @@ export class AuthService {
           }
           this.router.navigate(['/login']);
         },
-        (err: HttpErrorResponse) => console.log(`Got error: ${err}`)
+        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
       );
   }
 }

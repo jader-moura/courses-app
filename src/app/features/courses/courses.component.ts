@@ -20,7 +20,6 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     this.coursesStoreService.courses$.subscribe((data) => {
       this.coursesResult$ = data;
-      console.log(data);
     });
   }
 

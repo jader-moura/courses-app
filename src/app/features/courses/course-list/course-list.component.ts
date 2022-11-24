@@ -12,7 +12,5 @@ export class CourseListComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.courses);
-  }
+  ngOnInit(): void {}
 }
