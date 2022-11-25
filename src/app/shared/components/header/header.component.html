@@ -8,8 +8,10 @@
 
   <div class="text-end">
     <ng-container *ngIf="authorized === true; else noAuthorized">
-      <h2>{{ userName }}</h2>
-      <app-button [text]="'Logout'" (onClick)="logout()"></app-button>
+      <article>
+        <h2 class="user-name">{{ userName }}</h2>
+        <app-button [text]="'Logout'" (onClick)="logout()"></app-button>
+      </article>
     </ng-container>
     <ng-template #noAuthorized>
       <app-button [text]="'Login'" link="login"></app-button>
