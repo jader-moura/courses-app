@@ -10,7 +10,7 @@ export class AuthorizedGuard implements CanLoad {
   isAuthorized: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.isAuthorized.subscribe(
+    this.authService.isAuthorized$.subscribe(
       (data) => (this.isAuthorized = data)
     );
   }

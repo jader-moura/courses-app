@@ -1,17 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SessionStorageService } from 'src/app/auth/services/session-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  // private name$$!: BehaviorSubject<string>;
-  public name$!: Observable<string>;
-  // private isAdmin$$!: BehaviorSubject<boolean>;
-  public isAdmin$!: Observable<boolean>;
-
   constructor(
     private sessionStorage: SessionStorageService,
     private httpClient: HttpClient
@@ -25,21 +20,8 @@ export class UserService {
       this.sessionStorage.getToken() || ''
     );
 
-    let user = {};
-
-    this.httpClient
-      .get('http://localhost:4000/users/me', { headers: httpHeaders })
-      .subscribe(({ result }: any) => {
-        // this.name$$ = new BehaviorSubject<string>(result.name);
-        // this.name$ = this.name$$.asObservable();
-
-        // this.isAdmin$$ = new BehaviorSubject<boolean>(result.role === 'admin');
-        // this.isAdmin$ = this.isAdmin$$.asObservable();
-        user = {
-          name: result.name,
-          isAdmin: result.role === 'admin',
-        };
-      });
-    return of(user);
+    return this.httpClient.get('http://localhost:4000/users/me', {
+      headers: httpHeaders,
+    });
   }
 }

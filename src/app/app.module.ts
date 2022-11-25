@@ -43,6 +43,7 @@ import { UserEffects } from './user/store/user.effects';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: 'Window', useValue: window },
   ],
   bootstrap: [AppComponent, SharedModule],
 })

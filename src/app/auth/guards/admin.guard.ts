@@ -13,10 +13,14 @@ import { UserStoreService } from 'src/app/user/services/user-store.service';
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
+  isAdmin: boolean = false;
+
   constructor(
     private userStoreService: UserStoreService,
     private router: Router
-  ) {}
+  ) {
+    this.userStoreService.isAdmin$.subscribe((data) => (this.isAdmin = data));
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -26,7 +30,7 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.userStoreService.isAdmin) {
+    if (this.isAdmin) {
       return true;
     } else {
       this.router.navigate(['/courses']);
