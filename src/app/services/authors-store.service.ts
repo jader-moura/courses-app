@@ -6,20 +6,16 @@ import { AuthorsService } from './authors.service';
   providedIn: 'root',
 })
 export class AuthorsStoreService {
-  constructor(
-    private isLoading$$: BehaviorSubject<boolean>,
-    private authors$$: BehaviorSubject<string[]>,
-    public isLoading$: Observable<boolean>,
-    public authors$: Observable<string[]>,
-    private authorService: AuthorsService
-  ) {
-    this.isLoading$$ = new BehaviorSubject<boolean>(false);
-    this.authors$$ = new BehaviorSubject<string[]>([]);
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
+  private authors$$ = new BehaviorSubject<any>([]);
+  public isLoading$: Observable<boolean>;
+  public authors$: Observable<any>;
 
+  constructor(private authorService: AuthorsService) {
     this.authorService.getAll().subscribe((authorsList) => {
-      isLoading$$.next(true);
-      authors$$.next(authorsList);
-      isLoading$$.next(false);
+      this.isLoading$$.next(true);
+      this.authors$$.next(authorsList);
+      this.isLoading$$.next(false);
     });
 
     this.isLoading$ = this.isLoading$$.asObservable();

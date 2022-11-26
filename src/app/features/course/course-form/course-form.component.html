@@ -83,10 +83,10 @@
           class="author-name"
           *ngFor="let author of authorsList; index as i"
         >
-          {{ author.authorName }}
+          {{ author.name }}
           <fa-icon
             [icon]="faTimes"
-            (click)="removeAuthor(author.authorId)"
+            (click)="removeAuthor(i)"
             class="icon-btn"
           ></fa-icon>
         </span>

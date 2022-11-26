@@ -24,9 +24,7 @@ export class AuthorsService {
   }
 
   getAll(): Observable<any> {
-    return this.httpClient
-      .get<any>('http://localhost:4000/authors/all')
-      .pipe(mergeMap((data: any) => data.results));
+    return this.httpClient.get<any>('http://localhost:4000/authors/all');
   }
 
   addAuthor(author: { name: string }): Observable<any> {

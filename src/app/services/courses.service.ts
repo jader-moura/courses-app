@@ -67,8 +67,8 @@ export class CoursesService {
       );
   }
 
-  getCourse(course: CourseProps) {
-    return this.httpClient.get(`http://localhost:4000/courses/${course.id}`);
+  getCourse(courseId: string) {
+    return this.httpClient.get(`http://localhost:4000/courses/${courseId}`);
   }
 
   deleteCourse(courseId: string) {
