@@ -1,13 +1,18 @@
 import { createAction, props } from '@ngrx/store';
-import { UserState } from './user.reducer';
 
-export const requestCurrentUser = createAction('[User API] Current User');
+export enum UserFeatureKey {
+  CurrentUser = '[User API] Current User',
+  CurrentUserSuccess = '[User API] Current User Success',
+  CurrentUserFail = '[User API] Current User Failure',
+}
+
+export const requestCurrentUser: any = createAction(UserFeatureKey.CurrentUser);
 
 export const requestCurrentUserSuccess = createAction(
-  '[User API] Current User Success',
-  props<{ user: UserState }>()
+  UserFeatureKey.CurrentUserSuccess,
+  props<{ name: string; isAdmin: boolean }>()
 );
 
 export const requestCurrentUserFail = createAction(
-  '[User API] Current User Failure'
+  UserFeatureKey.CurrentUserFail
 );

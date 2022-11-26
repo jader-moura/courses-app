@@ -12,7 +12,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { effects, reducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
-import { userInitialState, userReducer } from './user/store/user.reducer';
+import { initialState, userReducer } from './user/store/user.reducer';
 import { UserEffects } from './user/store/user.effects';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { UserEffects } from './user/store/user.effects';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     StoreModule.forFeature('user', userReducer, {
-      initialState: userInitialState,
+      initialState: initialState,
     }),
     EffectsModule.forFeature([UserEffects]),
   ],

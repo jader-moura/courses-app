@@ -6,20 +6,20 @@ export interface UserState {
   isAdmin: boolean;
 }
 
-export const userInitialState: UserState | any = {
+export const initialState: UserState | any = {
   name: '',
   isAdmin: false,
 };
 
-export const userFeatureKey = 'user key';
-
 const reducer = createReducer(
-  userInitialState,
+  initialState,
   on(UserActions.requestCurrentUser, (state) => ({ ...state })),
-  on(UserActions.requestCurrentUserSuccess, (state) => ({
-    name: state.name,
-    isAdmin: state.isAdmin,
-  })),
+  on(UserActions.requestCurrentUserSuccess, (state, { name, isAdmin }) => {
+    return {
+      name,
+      isAdmin,
+    };
+  }),
   on(UserActions.requestCurrentUserFail, (state) => ({ ...state }))
 );
 
