@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { AuthorsService } from 'src/app/services/authors.service';
 import { CoursesService } from 'src/app/services/courses.service';
-import { CourseProps } from 'src/app/shared/dtos/courses';
 
 @Component({
   selector: 'app-course-form',
@@ -20,11 +20,13 @@ export class CourseFormComponent implements OnInit {
   form!: FormGroup;
   faTimes = faTimes;
   formType: string = '';
+  authorsList: any[] = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private authorsService: AuthorsService
   ) {}
   ngOnInit(): void {
     this.route.url.subscribe((url: any) => {
@@ -45,9 +47,18 @@ export class CourseFormComponent implements OnInit {
 
   addAuthor(authorName: string) {
     if (!this.form.get('newAuthor')?.errors) {
-      (<FormArray>this.form.controls['authors']).push(
-        new FormControl(authorName)
-      );
+      this.authorsService
+        .addAuthor({ name: authorName })
+        .subscribe(({ result }) => {
+          this.authorsList.push({
+            authorName: result.name,
+            authorId: result.id,
+          });
+          (<FormArray>this.form.controls['authors']).push(
+            new FormControl(result.id)
+          );
+        });
+
       this.form.get('newAuthor')?.setValue('');
       this.form.get('newAuthor')?.markAsUntouched();
     }
@@ -57,7 +68,9 @@ export class CourseFormComponent implements OnInit {
     (<FormArray>this.form.controls['authors']).removeAt(authorIndex);
   }
 
-  onSubmit(value: CourseProps) {
+  onSubmit(value: any) {
+    delete value.newAuthor;
+
     if (this.formType === 'add') {
       this.coursesService.createCourse(value);
     }
