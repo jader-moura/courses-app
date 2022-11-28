@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
 import { CoursesService } from 'src/app/services/courses.service';
+import { UserStateFacade } from 'src/app/user/store/user.facade';
 
 @Component({
   selector: 'app-card',
@@ -11,7 +11,7 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./course-card.component.css'],
 })
 export class CourseCardComponent {
-  isAdmin: boolean = false;
+  isAdmin$ = this.userFacade.isAdmin$;
   faPencilAlt = faPencilAlt;
   faTrash = faTrash;
 
@@ -27,10 +27,8 @@ export class CourseCardComponent {
     private router: Router,
     private courseService: CoursesService,
     public modalService: ModalService,
-    private userStoreService: UserStoreService
-  ) {
-    this.userStoreService.isAdmin$.subscribe((data) => (this.isAdmin = data));
-  }
+    public userFacade: UserStateFacade
+  ) {}
 
   openCourse(type: string = '') {
     this.router.navigate([`/course${type}/${this.id}`]);

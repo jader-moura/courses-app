@@ -51,7 +51,3 @@ export class CoursesStateFacade {
     this.store.dispatch(CoursesActions.requestDeleteCourse({ body }));
   }
 }
-
-export interface Author {
-  name: string;
-}

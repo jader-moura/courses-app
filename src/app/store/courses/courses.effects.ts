@@ -4,11 +4,11 @@ import { CoursesService } from 'src/app/services/courses.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, switchMap, exhaustMap, catchError } from 'rxjs/operators';
+import { map, mergeMap, exhaustMap, catchError } from 'rxjs/operators';
 import * as CoursesActions from './courses.actions';
 
 @Injectable()
-export class AuthorsEffects {
+export class CoursesEffects {
   constructor(
     private actions$: Actions,
     private coursesService: CoursesService,
@@ -18,7 +18,7 @@ export class AuthorsEffects {
   getAll$ = createEffect((): any =>
     this.actions$.pipe(
       ofType(CoursesActions.requestAllCourses.type),
-      switchMap(
+      mergeMap(
         () =>
           this.coursesService.getAll().pipe(
             map(({ result }: any) => {
@@ -82,7 +82,7 @@ export class AuthorsEffects {
           this.coursesService.deleteCourse(action.credentials).pipe(
             map(({ result }: any) => {
               this.store.dispatch(
-                CoursesActions.requestAllCourses({
+                CoursesActions.requestAllCoursesSuccess({
                   allCourses: result,
                 })
               );

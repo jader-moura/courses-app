@@ -1,6 +1,6 @@
-import { CoursesStoreService } from './../../services/courses-store.service';
+import { CoursesStateFacade } from './../../store/courses/courses.facade';
 import { Component, OnInit } from '@angular/core';
-import { CoursesService } from 'src/app/services/courses.service';
+// import { CoursesService } from 'src/app/services/courses.service';
 import { CourseProps } from 'src/app/shared/dtos/courses';
 
 @Component({
@@ -9,24 +9,22 @@ import { CourseProps } from 'src/app/shared/dtos/courses';
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-  coursesResult$: CourseProps[] = [];
+  coursesResult$ = this.coursesStateFacade.allCourses$;
   search: string = '';
 
   constructor(
-    private coursesService: CoursesService,
-    private coursesStoreService: CoursesStoreService
+    // private coursesService: CoursesService,
+    private coursesStateFacade: CoursesStateFacade
   ) {}
 
   ngOnInit(): void {
-    this.coursesStoreService.courses$.subscribe((data) => {
-      this.coursesResult$ = data;
-    });
+    this.coursesStateFacade.getAllCourses();
   }
 
   onSearch({ search }: any) {
     this.search = search;
-    this.coursesService
-      .getAll(search)
-      .subscribe((courses: any) => (this.coursesResult$ = courses.result));
+    // this.coursesService
+    //   .getAll(search)
+    //   .subscribe((courses: any) => (this.coursesResult$ = courses.result));
   }
 }

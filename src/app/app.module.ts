@@ -12,8 +12,10 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { effects, reducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
-import { initialState, userReducer } from './user/store/user.reducer';
 import { UserEffects } from './user/store/user.effects';
+import { CoursesEffects } from './store/courses/courses.effects';
+import { UserModule } from './user/user.module';
+import { CoursesModule } from './features/courses/courses.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,12 +28,11 @@ import { UserEffects } from './user/store/user.effects';
     FormsModule,
     RouterModule,
     HttpClientModule,
+    UserModule,
+    CoursesModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    StoreModule.forFeature('user', userReducer, {
-      initialState: initialState,
-    }),
-    EffectsModule.forFeature([UserEffects]),
+    EffectsModule.forFeature([UserEffects, CoursesEffects]),
   ],
   exports: [
     BrowserModule,

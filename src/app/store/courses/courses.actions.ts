@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { CourseProps } from 'src/app/shared/dtos/courses';
 
 export enum CoursesFeatureKey {
   // Get All Courses keys
@@ -35,7 +36,8 @@ export const requestAllCourses: any = createAction(
   CoursesFeatureKey.RequestAllCourses
 );
 export const requestAllCoursesSuccess: any = createAction(
-  CoursesFeatureKey.RequestAllCoursesSuccess
+  CoursesFeatureKey.RequestAllCoursesSuccess,
+  props<{ allCourses: CourseProps[]; isAllCoursesLoading: boolean }>()
 );
 export const requestAllCoursesFail: any = createAction(
   CoursesFeatureKey.RequestAllCoursesFail
@@ -46,7 +48,8 @@ export const requestSingleCourse: any = createAction(
   CoursesFeatureKey.RequestSingleCourse
 );
 export const requestSingleCourseSuccess: any = createAction(
-  CoursesFeatureKey.RequestSingleCourseSuccess
+  CoursesFeatureKey.RequestSingleCourseSuccess,
+  props<{ course: CourseProps }>()
 );
 export const requestSingleCourseFail: any = createAction(
   CoursesFeatureKey.RequestSingleCourseFail
@@ -57,7 +60,8 @@ export const requestFilteredCourses: any = createAction(
   CoursesFeatureKey.RequestFilteredCourses
 );
 export const requestFilteredCoursesSuccess: any = createAction(
-  CoursesFeatureKey.RequestFilteredCoursesSuccess
+  CoursesFeatureKey.RequestFilteredCoursesSuccess,
+  props<{ courses: CourseProps[] }>()
 );
 
 // Delete Course action
@@ -73,7 +77,8 @@ export const requestEditCourse: any = createAction(
   CoursesFeatureKey.RequestEditCourse
 );
 export const requestEditCourseSuccess: any = createAction(
-  CoursesFeatureKey.RequestEditCourseSuccess
+  CoursesFeatureKey.RequestEditCourseSuccess,
+  props<{ course: CourseProps }>()
 );
 export const requestEditCourseFail: any = createAction(
   CoursesFeatureKey.RequestEditCourseFail
@@ -84,7 +89,8 @@ export const requestCreateCourse: any = createAction(
   CoursesFeatureKey.RequestCreateCourse
 );
 export const requestCreateCourseSuccess: any = createAction(
-  CoursesFeatureKey.RequestCreateCourseSuccess
+  CoursesFeatureKey.RequestCreateCourseSuccess,
+  props<{ course: CourseProps }>()
 );
 export const requestCreateCourseFail: any = createAction(
   CoursesFeatureKey.RequestCreateCourseFail

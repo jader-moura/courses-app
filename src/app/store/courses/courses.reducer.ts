@@ -12,7 +12,7 @@ export interface CoursesState {
   errorMessage: string;
 }
 
-export const initialState: CoursesState = {
+export const initialState: CoursesState | any = {
   allCourses: [],
   courses: [],
   course: undefined,
@@ -26,26 +26,32 @@ const reducer = createReducer(
   initialState,
   // Get All Courses reducer
   on(CoursesActions.requestAllCourses, (state) => ({ ...state })),
-  on(CoursesActions.requestAllCoursesSuccess, (state) => ({
+  on(
+    CoursesActions.requestAllCoursesSuccess,
+    (state, { allCourses, isAllCoursesLoading }) => ({
+      ...state,
+      allCourses,
+      isAllCoursesLoading,
+    })
+  ),
+  on(CoursesActions.requestAllCoursesFail, (state, { errorMessage }) => ({
     ...state,
-    allCourses: state.allCourses,
-    isAllCoursesLoading: state.isAllCoursesLoading,
-  })),
-  on(CoursesActions.requestAllCoursesFail, (state) => ({
-    ...state,
-    errorMessage: state.errorMessage,
+    errorMessage,
   })),
 
   // Get Single Course reducer
   on(CoursesActions.requestSingleCourse, (state) => ({ ...state })),
-  on(CoursesActions.requestSingleCourseSuccess, (state) => ({
+  on(
+    CoursesActions.requestSingleCourseSuccess,
+    (state, { course, isSingleCourseLoading }) => ({
+      ...state,
+      course,
+      isSingleCourseLoading,
+    })
+  ),
+  on(CoursesActions.requestSingleCourseFail, (state, { errorMessage }) => ({
     ...state,
-    course: state.course,
-    isSingleCourseLoading: state.isSingleCourseLoading,
-  })),
-  on(CoursesActions.requestSingleCourseFail, (state) => ({
-    ...state,
-    errorMessage: state.errorMessage,
+    errorMessage,
   })),
 
   // Get Filtered Courses reducer
@@ -58,35 +64,35 @@ const reducer = createReducer(
 
   // Delete Course reducer
   on(CoursesActions.requestDeleteCourse, (state) => ({ ...state })),
-  on(CoursesActions.requestDeleteCourseFail, (state) => ({
+  on(CoursesActions.requestDeleteCourseFail, (state, { errorMessage }) => ({
     ...state,
-    errorMessage: state.errorMessage,
+    errorMessage,
   })),
 
   // Edit Course reducer
   on(CoursesActions.requestEditCourse, (state) => ({ ...state })),
-  on(CoursesActions.requestEditCourseSuccess, (state) => ({
+  on(CoursesActions.requestEditCourseSuccess, (state, { course }) => ({
     ...state,
-    course: state.course,
+    course,
   })),
-  on(CoursesActions.requestEditCourseFail, (state) => ({
+  on(CoursesActions.requestEditCourseFail, (state, { errorMessage }) => ({
     ...state,
-    errorMessage: state.errorMessage,
+    errorMessage,
   })),
 
   // Create Course reducer
   on(CoursesActions.requestCreateCourse, (state) => ({ ...state })),
-  on(CoursesActions.requestCreateCourseSuccess, (state) => ({
+  on(CoursesActions.requestCreateCourseSuccess, (state, { course }) => ({
     ...state,
-    course: state.course,
+    course,
   })),
-  on(CoursesActions.requestCreateCourseFail, (state) => ({
+  on(CoursesActions.requestCreateCourseFail, (state, { errorMessage }) => ({
     ...state,
-    errorMessage: state.errorMessage,
+    errorMessage,
   }))
 );
 
-export const authorReducer = (
+export const coursesReducer = (
   state: CoursesState,
   action: Action
 ): CoursesState => reducer(state, action);

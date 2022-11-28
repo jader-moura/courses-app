@@ -24,13 +24,13 @@
       <div class="course-controller">
         <app-button (onClick)="openCourse()" text="SHOW COURSE"></app-button>
         <fa-icon
-          *ngIf="isAdmin"
+          *ngIf="isAdmin$ | async"
           [icon]="faPencilAlt"
           (click)="openCourse('/edit')"
           class="icon-btn"
         ></fa-icon>
         <fa-icon
-          *ngIf="isAdmin"
+          *ngIf="isAdmin$ | async"
           [icon]="faTrash"
           (click)="openRemoveCourseModal()"
           class="icon-btn"

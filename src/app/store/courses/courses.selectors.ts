@@ -33,9 +33,7 @@ export const getCourses = createSelector(
 
 export const getAllCourses = createSelector(
   getCoursesFeature,
-  (state: CoursesState) => {
-    return state.allCourses;
-  }
+  (state: CoursesState) => state.allCourses
 );
 
 export const getCourse = createSelector(
