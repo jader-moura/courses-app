@@ -1,4 +1,7 @@
-import { AuthorsStoreService } from './../../../services/authors-store.service';
+import {
+  Author,
+  AuthorsStateFacade,
+} from './../../../store/authors/authors.facade';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -9,7 +12,6 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { AuthorsService } from 'src/app/services/authors.service';
 import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
@@ -28,11 +30,13 @@ export class CourseFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private coursesService: CoursesService,
-    private authorsService: AuthorsService,
-    private authorsStoreService: AuthorsStoreService
+    private authorsStateFacade: AuthorsStateFacade
   ) {}
 
   ngOnInit(): void {
+    this.authorsStateFacade.getAuthors();
+
+    // Check form type
     this.route.url.subscribe((url: any) => {
       if (url[0].path === 'add') {
         this.formType = 'add';
@@ -59,24 +63,27 @@ export class CourseFormComponent implements OnInit {
         Validators.compose([Validators.pattern('^[A-Za-z0-9]+$')])
       ),
     });
+
+    // Get author that was added recently to be used on authors list
+    this.authorsStateFacade.addedAuthor$.subscribe((author: any) => {
+      if (author) {
+        this.authorsList.push({
+          name: author.name,
+          id: author.id,
+        });
+        (<FormArray>this.form.controls['authors']).push(
+          new FormControl(author.id)
+        );
+
+        this.form.get('newAuthor')?.setValue('');
+        this.form.get('newAuthor')?.markAsUntouched();
+      }
+    });
   }
 
   addAuthor(authorName: string) {
     if (!this.form.get('newAuthor')?.errors) {
-      this.authorsService
-        .addAuthor({ name: authorName })
-        .subscribe(({ result }) => {
-          this.authorsList.push({
-            name: result.name,
-            id: result.id,
-          });
-          (<FormArray>this.form.controls['authors']).push(
-            new FormControl(result.id)
-          );
-        });
-
-      this.form.get('newAuthor')?.setValue('');
-      this.form.get('newAuthor')?.markAsUntouched();
+      this.authorsStateFacade.addAuthor({ name: authorName });
     }
   }
 
@@ -96,15 +103,13 @@ export class CourseFormComponent implements OnInit {
         });
 
         // Get all authors and use the necessary information
-        this.authorsStoreService.authors$.subscribe(
-          ({ result: authorResult }) => {
-            authorResult.forEach((author: any) => {
-              if (result.authors.includes(author.id)) {
-                this.authorsList.push(author);
-              }
-            });
-          }
-        );
+        this.authorsStateFacade.authors$.subscribe((authorResult) => {
+          authorResult.forEach((author: any) => {
+            if (result.authors.includes(author.id)) {
+              this.authorsList.push(author);
+            }
+          });
+        });
       }
     });
   }

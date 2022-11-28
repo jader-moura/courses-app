@@ -22,4 +22,5 @@ export class AuthorsStateFacade {
 
 export interface Author {
   name: string;
+  id?: string;
 }

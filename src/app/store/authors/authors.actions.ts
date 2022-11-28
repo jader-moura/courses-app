@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Author } from './authors.facade';
 
 export enum AuthorsFeatureKey {
   // Get authors keys
@@ -19,7 +20,7 @@ export const requestAuthors: any = createAction(
 );
 export const requestAuthorsSuccess: any = createAction(
   AuthorsFeatureKey.RequestAuthorsSuccess,
-  props<{ authors: string[] }>()
+  props<{ authors: Author[] }>()
 );
 export const requestAuthorsFail: any = createAction(
   AuthorsFeatureKey.RequestAuthorsFail
@@ -27,16 +28,17 @@ export const requestAuthorsFail: any = createAction(
 
 // Add authors action
 export const requestAddAuthors: any = createAction(
-  AuthorsFeatureKey.RequestAddAuthors
+  AuthorsFeatureKey.RequestAddAuthors,
+  props<{ author: Author }>()
 );
 export const requestAddAuthorSuccess: any = createAction(
   AuthorsFeatureKey.requestAddAuthorSuccess,
-  props<{ addedAuthor: string[] }>()
+  props<{ addedAuthor: Author }>()
 );
 export const requestAddAuthorFail: any = createAction(
   AuthorsFeatureKey.requestAddAuthorFail
 );
 export const resetAddedAuthor: any = createAction(
   AuthorsFeatureKey.ResetAddedAuthor,
-  props<{ addedAuthor: string[] }>()
+  props<{ addedAuthor: Author }>()
 );

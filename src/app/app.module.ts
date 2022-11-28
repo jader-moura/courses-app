@@ -1,3 +1,4 @@
+import { AuthorsEffects } from './store/authors/authors.effects';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +17,7 @@ import { UserEffects } from './user/store/user.effects';
 import { CoursesEffects } from './store/courses/courses.effects';
 import { UserModule } from './user/user.module';
 import { CoursesModule } from './features/courses/courses.module';
+import { CourseFormModule } from './features/course/course-form/course-form.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,9 +32,10 @@ import { CoursesModule } from './features/courses/courses.module';
     HttpClientModule,
     UserModule,
     CoursesModule,
+    CourseFormModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    EffectsModule.forFeature([UserEffects, CoursesEffects]),
+    EffectsModule.forFeature([UserEffects, CoursesEffects, AuthorsEffects]),
   ],
   exports: [
     BrowserModule,

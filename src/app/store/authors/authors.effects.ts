@@ -45,12 +45,12 @@ export class AuthorsEffects {
     this.actions$.pipe(
       ofType(requestAddAuthors.type),
       exhaustMap(
-        (action: any) =>
-          this.authorsService.addAuthor(action.credentials).pipe(
+        ({ author }: any) =>
+          this.authorsService.addAuthor(author).pipe(
             map(({ result }: any) => {
               this.store.dispatch(
                 requestAddAuthorSuccess({
-                  author: result,
+                  addedAuthor: result,
                 })
               );
             })
