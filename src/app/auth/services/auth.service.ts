@@ -32,14 +32,7 @@ export class AuthService {
   }
 
   login(loginPayload: LoginPayloadProps) {
-    this.httpClient.post('http://localhost:4000/login', loginPayload).subscribe(
-      ({ result }: any) => {
-        this.sessionStorage.setToken(result);
-        window.location.href = '/courses';
-        // this.router.navigate(['/courses']);
-      },
-      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-    );
+    return this.httpClient.post('http://localhost:4000/login', loginPayload);
   }
 
   logout() {
@@ -74,7 +67,7 @@ export class AuthService {
           if (successful) {
             alert('Account created with success, please login');
           }
-          window.location.href = '/login';
+          // window.location.href = '/login';
 
           // this.router.navigate(['/login']);
         },

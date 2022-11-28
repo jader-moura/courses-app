@@ -14,12 +14,11 @@ export const initialState: UserState | any = {
 const reducer = createReducer(
   initialState,
   on(UserActions.requestCurrentUser, (state) => ({ ...state })),
-  on(UserActions.requestCurrentUserSuccess, (state, { name, isAdmin }) => {
-    return {
-      name,
-      isAdmin,
-    };
-  }),
+  on(UserActions.requestCurrentUserSuccess, (state, { name, isAdmin }) => ({
+    ...state,
+    name,
+    isAdmin,
+  })),
   on(UserActions.requestCurrentUserFail, (state) => ({ ...state }))
 );
 
