@@ -38,33 +38,19 @@ export class CoursesService {
   }
 
   createCourse(course: CourseProps) {
-    this.httpClient
-      .post('http://localhost:4000/courses/add', course, {
-        headers: this.httpHeaders,
-      })
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Course created with success.');
-          }
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+    return this.httpClient.post('http://localhost:4000/courses/add', course, {
+      headers: this.httpHeaders,
+    });
   }
 
   editCourse(course: CourseProps) {
-    this.httpClient
-      .put(`http://localhost:4000/courses/${course.id}`, course, {
+    return this.httpClient.put(
+      `http://localhost:4000/courses/${course.id}`,
+      course,
+      {
         headers: this.httpHeaders,
-      })
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Course edited with success.');
-          }
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+      }
+    );
   }
 
   getCourse(courseId: string) {
@@ -72,17 +58,8 @@ export class CoursesService {
   }
 
   deleteCourse(courseId: string) {
-    this.httpClient
-      .delete(`http://localhost:4000/courses/${courseId}`, {
-        headers: this.httpHeaders,
-      })
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Course removed with success.');
-          }
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+    return this.httpClient.delete(`http://localhost:4000/courses/${courseId}`, {
+      headers: this.httpHeaders,
+    });
   }
 }
