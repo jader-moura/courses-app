@@ -8,7 +8,9 @@ import { getName, isAdmin } from './user.selectors';
 export class UserStateFacade {
   name$ = this.store.pipe(select(getName));
   isAdmin$ = this.store.pipe(select(isAdmin));
+
   constructor(private store: Store<UserState>) {}
+
   getCurrentUser() {
     this.store.dispatch(UserActions.requestCurrentUser());
   }
