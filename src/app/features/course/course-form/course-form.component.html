@@ -76,17 +76,14 @@
       </section>
     </div>
 
-    <section
-      *ngIf="form.get('authors')?.value.length > 0"
-      class="author-wrapper"
-    >
+    <section *ngIf="authorsList.length > 0" class="author-wrapper">
       <label>Authors List</label>
       <div class="authors-list">
         <span
           class="author-name"
-          *ngFor="let author of form.get('authors')?.value; index as i"
+          *ngFor="let author of authorsList; index as i"
         >
-          {{ author }}
+          {{ author.name }}
           <fa-icon
             [icon]="faTimes"
             (click)="removeAuthor(i)"

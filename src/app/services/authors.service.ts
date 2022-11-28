@@ -1,23 +1,35 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, mergeMap } from 'rxjs';
+import { SessionStorageService } from '../auth/services/session-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorsService {
-  constructor(private httpClient: HttpClient) {}
+  private httpHeaders: any = {};
 
-  getAll(): Observable<any> {
-    return this.httpClient
-      .get<any>('http://localhost:4000/authors/all')
-      .pipe(mergeMap((data: any) => data.results));
+  constructor(
+    private httpClient: HttpClient,
+    private sessionStorage: SessionStorageService
+  ) {
+    this.httpHeaders = new HttpHeaders().set(
+      'Authorization',
+      this.sessionStorage.getToken() || ''
+    );
   }
 
-  addAuthor(author: { name: string }) {
-    this.httpClient.post('http://localhost:4000/authors/add', author).subscribe(
-      () => alert('Author created with success'),
-      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-    );
+  getAll(): Observable<any> {
+    return this.httpClient.get<any>('http://localhost:4000/authors/all');
+  }
+
+  addAuthor(author: { name: string }): Observable<any> {
+    return this.httpClient.post('http://localhost:4000/authors/add', author, {
+      headers: this.httpHeaders,
+    });
   }
 }
