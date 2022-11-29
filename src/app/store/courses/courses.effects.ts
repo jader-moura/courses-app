@@ -57,8 +57,8 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(CoursesActions.requestSingleCourse.type),
       exhaustMap(
-        (action: any) =>
-          this.coursesService.getCourse(action.credentials).pipe(
+        ({ id }: any) =>
+          this.coursesService.getCourse(id).pipe(
             map(({ result }: any) => {
               this.store.dispatch(
                 CoursesActions.requestSingleCourseSuccess({
@@ -78,14 +78,10 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(CoursesActions.requestDeleteCourse.type),
       exhaustMap(
-        (action: any) =>
-          this.coursesService.deleteCourse(action.credentials).pipe(
-            map(({ result }: any) => {
-              this.store.dispatch(
-                CoursesActions.requestAllCoursesSuccess({
-                  allCourses: result,
-                })
-              );
+        ({ id }: any) =>
+          this.coursesService.deleteCourse(id).pipe(
+            map(() => {
+              this.store.dispatch(CoursesActions.requestAllCourses());
             })
           ),
         catchError(({ result }) =>
@@ -99,8 +95,8 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(CoursesActions.requestEditCourse.type),
       exhaustMap(
-        (action: any) =>
-          this.coursesService.editCourse(action.credentials).pipe(
+        ({ body, id }: any) =>
+          this.coursesService.editCourse(body, id).pipe(
             map(({ result }: any) => {
               this.store.dispatch(
                 CoursesActions.requestEditCourseSuccess({
@@ -120,8 +116,8 @@ export class CoursesEffects {
     this.actions$.pipe(
       ofType(CoursesActions.requestCreateCourse.type),
       exhaustMap(
-        (action: any) =>
-          this.coursesService.createCourse(action.credentials).pipe(
+        ({ body }: any) =>
+          this.coursesService.createCourse(body).pipe(
             map(({ result }: any) => {
               this.store.dispatch(
                 CoursesActions.requestCreateCourseSuccess({

@@ -47,7 +47,7 @@ export class CoursesStateFacade {
     this.store.dispatch(CoursesActions.requestCreateCourse({ body }));
   }
 
-  deleteCourse(body: CourseProps) {
-    this.store.dispatch(CoursesActions.requestDeleteCourse({ body }));
+  deleteCourse(id: string) {
+    this.store.dispatch(CoursesActions.requestDeleteCourse({ id }));
   }
 }

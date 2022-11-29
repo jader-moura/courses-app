@@ -39,14 +39,10 @@ export class CoursesService {
     });
   }
 
-  editCourse(course: CourseProps) {
-    return this.httpClient.put(
-      `http://localhost:4000/courses/${course.id}`,
-      course,
-      {
-        headers: this.httpHeaders,
-      }
-    );
+  editCourse(course: CourseProps, id: string) {
+    return this.httpClient.put(`http://localhost:4000/courses/${id}`, course, {
+      headers: this.httpHeaders,
+    });
   }
 
   getCourse(courseId: string) {

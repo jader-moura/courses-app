@@ -45,7 +45,8 @@ export const requestAllCoursesFail: any = createAction(
 
 // Get Single Course action
 export const requestSingleCourse: any = createAction(
-  CoursesFeatureKey.RequestSingleCourse
+  CoursesFeatureKey.RequestSingleCourse,
+  props<{ id: CourseProps }>()
 );
 export const requestSingleCourseSuccess: any = createAction(
   CoursesFeatureKey.RequestSingleCourseSuccess,
@@ -66,7 +67,8 @@ export const requestFilteredCoursesSuccess: any = createAction(
 
 // Delete Course action
 export const requestDeleteCourse: any = createAction(
-  CoursesFeatureKey.RequestDeleteCourse
+  CoursesFeatureKey.RequestDeleteCourse,
+  props<{ id: string }>()
 );
 export const requestDeleteCourseFail: any = createAction(
   CoursesFeatureKey.RequestDeleteCourseFail
@@ -74,7 +76,8 @@ export const requestDeleteCourseFail: any = createAction(
 
 // Edit Course action
 export const requestEditCourse: any = createAction(
-  CoursesFeatureKey.RequestEditCourse
+  CoursesFeatureKey.RequestEditCourse,
+  props<{ course: CourseProps; id: string }>()
 );
 export const requestEditCourseSuccess: any = createAction(
   CoursesFeatureKey.RequestEditCourseSuccess,
@@ -86,7 +89,8 @@ export const requestEditCourseFail: any = createAction(
 
 // Create Course action
 export const requestCreateCourse: any = createAction(
-  CoursesFeatureKey.RequestCreateCourse
+  CoursesFeatureKey.RequestCreateCourse,
+  props<{ course: CourseProps }>()
 );
 export const requestCreateCourseSuccess: any = createAction(
   CoursesFeatureKey.RequestCreateCourseSuccess,

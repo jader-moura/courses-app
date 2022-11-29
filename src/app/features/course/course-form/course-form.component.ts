@@ -1,7 +1,5 @@
-import {
-  Author,
-  AuthorsStateFacade,
-} from './../../../store/authors/authors.facade';
+import { CoursesStateFacade } from './../../../store/courses/courses.facade';
+import { AuthorsStateFacade } from './../../../store/authors/authors.facade';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -12,7 +10,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { CoursesService } from 'src/app/services/courses.service';
+import { CourseProps } from 'src/app/shared/dtos/courses';
 
 @Component({
   selector: 'app-course-form',
@@ -22,14 +20,14 @@ import { CoursesService } from 'src/app/services/courses.service';
 export class CourseFormComponent implements OnInit {
   form!: FormGroup;
   faTimes = faTimes;
-  formType: 'add' | 'edit' | 'show' = 'show';
+  formType: 'create' | 'edit' | 'show' = 'show';
   authorsList: any[] = [];
   courseId?: string = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private coursesService: CoursesService,
+    private coursesStateFacade: CoursesStateFacade,
     private authorsStateFacade: AuthorsStateFacade
   ) {}
 
@@ -39,7 +37,7 @@ export class CourseFormComponent implements OnInit {
     // Check form type
     this.route.url.subscribe((url: any) => {
       if (url[0].path === 'add') {
-        this.formType = 'add';
+        this.formType = 'create';
       } else if (url[0].path === 'edit') {
         this.formType = 'edit';
         this.courseId = url[1].path;
@@ -49,7 +47,11 @@ export class CourseFormComponent implements OnInit {
       }
 
       if (this.courseId) {
-        this.getCurrentCourse(this.courseId);
+        this.coursesStateFacade.getSingleCourse(this.courseId);
+        // Get single course information
+        this.coursesStateFacade.course$.subscribe((result) => {
+          if (result) this.getCurrentCourse(result);
+        });
       }
     });
 
@@ -87,31 +89,28 @@ export class CourseFormComponent implements OnInit {
     }
   }
 
-  getCurrentCourse(courseId: string) {
-    // Get all course information
-    this.coursesService.getCourse(courseId).subscribe(({ result }: any) => {
-      // Set value in inputs accordingly with the information got
-      this.form.controls['title'].setValue(result.title);
-      this.form.controls['description'].setValue(result.description);
-      this.form.controls['duration'].setValue(result.duration);
+  getCurrentCourse(result: CourseProps) {
+    // Set value in inputs accordingly with the information got
+    this.form.controls['title'].setValue(result.title);
+    this.form.controls['description'].setValue(result.description);
+    this.form.controls['duration'].setValue(result.duration);
 
-      if (result.authors.length > 0) {
-        result.authors.forEach((authorId: string) => {
-          (<FormArray>this.form.controls['authors']).push(
-            new FormControl(authorId)
-          );
-        });
+    if (result.authors.length > 0) {
+      result.authors.forEach((authorId: string) => {
+        (<FormArray>this.form.controls['authors']).push(
+          new FormControl(authorId)
+        );
+      });
 
-        // Get all authors and use the necessary information
-        this.authorsStateFacade.authors$.subscribe((authorResult) => {
-          authorResult.forEach((author: any) => {
-            if (result.authors.includes(author.id)) {
-              this.authorsList.push(author);
-            }
-          });
+      // Get all authors and use the necessary information
+      this.authorsStateFacade.authors$.subscribe((authorResult) => {
+        authorResult.forEach((author: any) => {
+          if (result.authors.includes(author.id)) {
+            this.authorsList.push(author);
+          }
         });
-      }
-    });
+      });
+    }
   }
 
   removeAuthor(authorIndex: number) {
@@ -122,11 +121,11 @@ export class CourseFormComponent implements OnInit {
   onSubmit(value: any) {
     delete value.newAuthor;
 
-    if (this.formType === 'add') {
-      this.coursesService.createCourse(value);
+    if (this.formType === 'create') {
+      this.coursesStateFacade.createCourse(value);
     }
-    if (this.formType === 'edit') {
-      this.coursesService.editCourse({ ...value, id: this.courseId });
+    if (this.formType === 'edit' && this.courseId) {
+      this.coursesStateFacade.editCourse(value, this.courseId);
     }
   }
 

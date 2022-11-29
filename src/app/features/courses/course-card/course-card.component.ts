@@ -1,3 +1,4 @@
+import { CoursesStateFacade } from './../../../store/courses/courses.facade';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +26,7 @@ export class CourseCardComponent {
 
   constructor(
     private router: Router,
-    private courseService: CoursesService,
+    private coursesStateFacade: CoursesStateFacade,
     public modalService: ModalService,
     public userFacade: UserStateFacade
   ) {}
@@ -39,6 +40,6 @@ export class CourseCardComponent {
   }
 
   removeCourse() {
-    this.courseService.deleteCourse(this.id);
+    this.coursesStateFacade.deleteCourse(this.id);
   }
 }
