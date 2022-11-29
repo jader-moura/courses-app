@@ -1,3 +1,4 @@
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -6,21 +7,23 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  token: string = '';
+
+  constructor(private authStateFacade: AuthStateFacade) {
+    this.authStateFacade.getToken$.subscribe((data) => (this.token = data));
+  }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let token = this.authService.authorization;
-    if (token) {
+    if (this.token) {
       request = request.clone({
         setHeaders: {
-          Authorization: token,
+          Authorization: this.token,
         },
       });
     }

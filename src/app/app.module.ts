@@ -18,6 +18,8 @@ import { CoursesEffects } from './store/courses/courses.effects';
 import { UserModule } from './user/user.module';
 import { CoursesModule } from './features/courses/courses.module';
 import { CourseFormModule } from './features/course/course-form/course-form.module';
+import { AuthEffects } from './auth/store/auth.effects';
+import { LoginModule } from './features/login/login.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,9 +35,15 @@ import { CourseFormModule } from './features/course/course-form/course-form.modu
     UserModule,
     CoursesModule,
     CourseFormModule,
+    LoginModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    EffectsModule.forFeature([UserEffects, CoursesEffects, AuthorsEffects]),
+    EffectsModule.forFeature([
+      UserEffects,
+      CoursesEffects,
+      AuthorsEffects,
+      AuthEffects,
+    ]),
   ],
   exports: [
     BrowserModule,

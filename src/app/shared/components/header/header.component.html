@@ -5,7 +5,7 @@
   </a>
 
   <div class="text-end">
-    <ng-container *ngIf="authorized === true; else noAuthorized">
+    <ng-container *ngIf="authorized | async; else noAuthorized">
       <article>
         <h2 class="user-name">{{ userName$ | async }}</h2>
         <app-button [text]="'Logout'" (onClick)="logout()"></app-button>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserStateFacade } from 'src/app/user/store/user.facade';
 import { Router } from '@angular/router';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 
 @Component({
   selector: 'app-header',
@@ -9,20 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  authorized: boolean = false;
+  authorized = this.authStateFacade.isAuthorized$;
   userName$ = this.userFacade.name$;
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private authStateFacade: AuthStateFacade,
     private userFacade: UserStateFacade
   ) {}
 
   ngOnInit(): void {
     this.userFacade.getCurrentUser();
-    this.authService.isAuthorized$.subscribe(
-      (data) => (this.authorized = data)
-    );
   }
 
   goBack() {
@@ -30,6 +27,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.authStateFacade.logout();
   }
 }

@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { User } from './auth.facade';
 
 export enum AuthFeatureKey {
   RequestLogin = '[Auth API] Request Login',
@@ -14,7 +15,10 @@ export enum AuthFeatureKey {
 }
 
 // Login Actions Request
-export const requestLogin: any = createAction(AuthFeatureKey.RequestLogin);
+export const requestLogin: any = createAction(
+  AuthFeatureKey.RequestLogin,
+  props<{ user: User }>()
+);
 export const requestLoginSuccess: any = createAction(
   AuthFeatureKey.RequestLoginSuccess,
   props<{ isAuthorized: boolean; token: string }>()
@@ -26,7 +30,8 @@ export const requestLoginFail: any = createAction(
 
 // Register Actions Request
 export const requestRegister: any = createAction(
-  AuthFeatureKey.RequestRegister
+  AuthFeatureKey.RequestRegister,
+  props<{ user: User }>()
 );
 export const requestRegisterSuccess: any = createAction(
   AuthFeatureKey.RequestRegisterSuccess

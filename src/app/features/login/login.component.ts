@@ -1,28 +1,19 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { SessionStorageService } from 'src/app/auth/services/session-storage.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   title = 'login';
 
-  constructor(
-    private authService: AuthService,
-    private sessionStorage: SessionStorageService
-  ) {}
+  constructor(private authStateFacade: AuthStateFacade) {}
 
-  onSubmit(values: any) {
-    this.authService.login(values).subscribe(
-      ({ result }: any) => {
-        this.sessionStorage.setToken(result);
-        window.location.href = '/courses';
-      },
-      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-    );
+  ngOnInit(): void {}
+
+  onSubmit({ email, password }: any) {
+    this.authStateFacade.login({ email, password });
   }
 }

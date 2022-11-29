@@ -1,26 +1,22 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SessionStorageService } from '../auth/services/session-storage.service';
 import { CourseProps } from '../shared/dtos/courses';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  httpHeaders: any = {};
+  private httpHeaders: any = {};
 
   constructor(
     private httpClient: HttpClient,
-    private sessionStorage: SessionStorageService
+    private authStateFacade: AuthStateFacade
   ) {
-    this.httpHeaders = new HttpHeaders().set(
-      'Authorization',
-      this.sessionStorage.getToken() || ''
+    this.authStateFacade.getToken$.subscribe(
+      (data) =>
+        (this.httpHeaders = new HttpHeaders().set('Authorization', data || ''))
     );
   }
 

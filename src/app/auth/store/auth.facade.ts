@@ -19,7 +19,10 @@ export class AuthStateFacade {
   constructor(
     private store: Store<AuthState>,
     private sessionStorage: SessionStorageService
-  ) {}
+  ) {
+    this.setAuthorization();
+    this.sessionStorage.getToken();
+  }
 
   login(body: User) {
     this.store.dispatch(AuthActions.requestLogin({ body }));
@@ -35,7 +38,10 @@ export class AuthStateFacade {
   }
   setAuthorization() {
     this.store.dispatch(
-      AuthActions.requestLoginSuccess({ token: this.sessionStorage.getToken() })
+      AuthActions.requestLoginSuccess({
+        token: this.sessionStorage.getToken(),
+        isAuthorized: this.sessionStorage.getToken().length > 0 || false,
+      })
     );
   }
 }

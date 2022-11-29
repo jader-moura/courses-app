@@ -1,5 +1,6 @@
+import { User } from './../../auth/store/auth.facade';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,11 +10,11 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class RegistrationComponent implements OnInit {
   title = 'registration';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authStateFacade: AuthStateFacade) {}
 
   ngOnInit(): void {}
 
-  onSubmit(values: any) {
-    this.authService.register(values);
+  onSubmit(values: User) {
+    this.authStateFacade.register(values);
   }
 }
