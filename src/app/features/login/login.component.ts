@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   title = 'login';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authStateFacade: AuthStateFacade) {}
 
-  onSubmit(values: any) {
-    this.authService.login(values);
+  ngOnInit(): void {}
+
+  onSubmit({ email, password }: any) {
+    this.authStateFacade.login({ email, password });
   }
 }

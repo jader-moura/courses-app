@@ -1,27 +1,28 @@
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SessionStorageService } from 'src/app/auth/services/session-storage.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private httpHeaders: any = {};
+
   constructor(
-    private sessionStorage: SessionStorageService,
+    private authStateFacade: AuthStateFacade,
     private httpClient: HttpClient
   ) {
+    this.authStateFacade.getToken$.subscribe(
+      (data) =>
+        (this.httpHeaders = new HttpHeaders().set('Authorization', data || ''))
+    );
     this.getUser();
   }
 
   getUser(): Observable<any> {
-    let httpHeaders = new HttpHeaders().set(
-      'Authorization',
-      this.sessionStorage.getToken() || ''
-    );
-
     return this.httpClient.get('http://localhost:4000/users/me', {
-      headers: httpHeaders,
+      headers: this.httpHeaders,
     });
   }
 }

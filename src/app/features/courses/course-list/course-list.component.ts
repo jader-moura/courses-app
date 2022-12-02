@@ -7,7 +7,7 @@ import { CourseProps } from 'src/app/shared/dtos/courses';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
-  @Input() courses: CourseProps[] = [];
+  @Input() courses: CourseProps[] | null = [];
   @Input() editable: boolean = false;
 
   constructor() {}

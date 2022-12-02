@@ -1,3 +1,4 @@
+import { AuthorsEffects } from './store/authors/authors.effects';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { effects, reducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './user/store/user.effects';
+import { CoursesEffects } from './store/courses/courses.effects';
+import { UserModule } from './user/user.module';
+import { CoursesModule } from './features/courses/courses.module';
+import { CourseFormModule } from './features/course/course-form/course-form.module';
+import { AuthEffects } from './auth/store/auth.effects';
+import { LoginModule } from './features/login/login.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +32,18 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     FormsModule,
     RouterModule,
     HttpClientModule,
+    UserModule,
+    CoursesModule,
+    CourseFormModule,
+    LoginModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
+    EffectsModule.forFeature([
+      UserEffects,
+      CoursesEffects,
+      AuthorsEffects,
+      AuthEffects,
+    ]),
   ],
   exports: [
     BrowserModule,

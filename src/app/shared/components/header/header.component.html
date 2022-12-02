@@ -1,15 +1,13 @@
++
 <header class="main-header d-flex flex-wrap">
-  <a
-    class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto logo"
-    routerLink="/courses"
-  >
+  <a class="col-6 col-lg-auto mb-2 mb-lg-0 me-lg-auto logo" (click)="goBack()">
     <img src="../../../../assets/logo.svg" alt="App courses logo" />
   </a>
 
   <div class="text-end">
-    <ng-container *ngIf="authorized === true; else noAuthorized">
+    <ng-container *ngIf="authorized | async; else noAuthorized">
       <article>
-        <h2 class="user-name">{{ userName }}</h2>
+        <h2 class="user-name">{{ userName$ | async }}</h2>
         <app-button [text]="'Logout'" (onClick)="logout()"></app-button>
       </article>
     </ng-container>
@@ -18,9 +16,3 @@
     </ng-template>
   </div>
 </header>
-<app-modal
-  [title]="'Message'"
-  [message]="'Message text'"
-  [okButtonText]="'ok'"
-  [cancelButtonText]="'close'"
-></app-modal>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-info',
@@ -6,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./info.component.css'],
 })
 export class InfoComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
   createNewCourse() {
-    alert('Create new course');
+    this.router.navigate(['/course/add']);
   }
 }

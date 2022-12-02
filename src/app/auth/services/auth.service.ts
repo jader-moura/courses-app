@@ -9,7 +9,6 @@ import {
   LoginPayloadProps,
   RegisterPayloadProps,
 } from 'src/app/shared/dtos/auth';
-import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -21,7 +20,6 @@ export class AuthService {
   authorization: string = '';
 
   constructor(
-    private router: Router,
     private httpClient: HttpClient,
     private sessionStorage: SessionStorageService
   ) {
@@ -32,14 +30,7 @@ export class AuthService {
   }
 
   login(loginPayload: LoginPayloadProps) {
-    this.httpClient.post('http://localhost:4000/login', loginPayload).subscribe(
-      ({ result }: any) => {
-        this.sessionStorage.setToken(result);
-        window.location.href = '/courses';
-        // this.router.navigate(['/courses']);
-      },
-      (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-    );
+    return this.httpClient.post('http://localhost:4000/login', loginPayload);
   }
 
   logout() {
@@ -48,37 +39,15 @@ export class AuthService {
       this.sessionStorage.getToken() || ''
     );
 
-    this.httpClient
-      .delete('http://localhost:4000/logout', { headers: httpHeaders })
-      .subscribe(
-        () => {
-          this.sessionStorage.deleteToken();
-          window.location.href = '/login';
-          // this.router.navigate(['/login']);
-        },
-        ({ status }: HttpErrorResponse) => {
-          if (status === 401) {
-            this.sessionStorage.deleteToken();
-            window.location.href = '/login';
-            // this.router.navigate(['/login']);
-          }
-        }
-      );
+    return this.httpClient.delete('http://localhost:4000/logout', {
+      headers: httpHeaders,
+    });
   }
 
   register(registerPayload: RegisterPayloadProps) {
-    this.httpClient
-      .post('http://localhost:4000/register', registerPayload)
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Account created with success, please login');
-          }
-          window.location.href = '/login';
-
-          // this.router.navigate(['/login']);
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+    return this.httpClient.post(
+      'http://localhost:4000/register',
+      registerPayload
+    );
   }
 }

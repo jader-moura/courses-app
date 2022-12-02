@@ -1,26 +1,22 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SessionStorageService } from '../auth/services/session-storage.service';
 import { CourseProps } from '../shared/dtos/courses';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  httpHeaders: any = {};
+  private httpHeaders: any = {};
 
   constructor(
     private httpClient: HttpClient,
-    private sessionStorage: SessionStorageService
+    private authStateFacade: AuthStateFacade
   ) {
-    this.httpHeaders = new HttpHeaders().set(
-      'Authorization',
-      this.sessionStorage.getToken() || ''
+    this.authStateFacade.getToken$.subscribe(
+      (data) =>
+        (this.httpHeaders = new HttpHeaders().set('Authorization', data || ''))
     );
   }
 
@@ -38,33 +34,15 @@ export class CoursesService {
   }
 
   createCourse(course: CourseProps) {
-    this.httpClient
-      .post('http://localhost:4000/courses/add', course, {
-        headers: this.httpHeaders,
-      })
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Course created with success.');
-          }
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+    return this.httpClient.post('http://localhost:4000/courses/add', course, {
+      headers: this.httpHeaders,
+    });
   }
 
-  editCourse(course: CourseProps) {
-    this.httpClient
-      .put(`http://localhost:4000/courses/${course.id}`, course, {
-        headers: this.httpHeaders,
-      })
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Course edited with success.');
-          }
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+  editCourse(course: CourseProps, id: string) {
+    return this.httpClient.put(`http://localhost:4000/courses/${id}`, course, {
+      headers: this.httpHeaders,
+    });
   }
 
   getCourse(courseId: string) {
@@ -72,17 +50,8 @@ export class CoursesService {
   }
 
   deleteCourse(courseId: string) {
-    this.httpClient
-      .delete(`http://localhost:4000/courses/${courseId}`, {
-        headers: this.httpHeaders,
-      })
-      .subscribe(
-        ({ successful }: any) => {
-          if (successful) {
-            alert('Course removed with success.');
-          }
-        },
-        (err: HttpErrorResponse) => console.error(`Got error: ${err}`)
-      );
+    return this.httpClient.delete(`http://localhost:4000/courses/${courseId}`, {
+      headers: this.httpHeaders,
+    });
   }
 }

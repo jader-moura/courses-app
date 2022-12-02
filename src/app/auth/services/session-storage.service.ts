@@ -9,8 +9,8 @@ export class SessionStorageService {
   setToken(token: any) {
     this.window?.localStorage.setItem('token', token);
   }
-  getToken() {
-    return this.window?.localStorage.getItem('token');
+  getToken(): string {
+    return this.window?.localStorage.getItem('token') || '';
   }
   deleteToken() {
     this.window?.localStorage.removeItem('token');

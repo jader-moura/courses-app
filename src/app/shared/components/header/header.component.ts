@@ -1,6 +1,7 @@
-import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserStateFacade } from 'src/app/user/store/user.facade';
+import { Router } from '@angular/router';
+import { AuthStateFacade } from 'src/app/auth/store/auth.facade';
 
 @Component({
   selector: 'app-header',
@@ -8,22 +9,24 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  authorized: boolean = false;
-  userName: string = '';
+  authorized = this.authStateFacade.isAuthorized$;
+  userName$ = this.userFacade.name$;
 
   constructor(
-    private authService: AuthService,
-    private userStoreService: UserStoreService
+    private router: Router,
+    private authStateFacade: AuthStateFacade,
+    private userFacade: UserStateFacade
   ) {}
 
   ngOnInit(): void {
-    this.authService.isAuthorized$.subscribe(
-      (data) => (this.authorized = data)
-    );
-    this.userStoreService.name$.subscribe((data) => (this.userName = data));
+    this.userFacade.getCurrentUser();
+  }
+
+  goBack() {
+    this.router.navigate(['/courses']);
   }
 
   logout() {
-    this.authService.logout();
+    this.authStateFacade.logout();
   }
 }
