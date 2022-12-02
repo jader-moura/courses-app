@@ -88,8 +88,11 @@
   color: #333e48;
 }
 
-.form-content b {
+.form-content a.router-link {
   cursor: pointer;
+  color: #333e48;
+  text-decoration: none;
+  font-weight: bolder;
 }
 
 .form-content button {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,15 +9,11 @@ import { Router } from '@angular/router';
 export class RegistrationComponent implements OnInit {
   title = 'registration';
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   onSubmit(values: any) {
-    console.log(values);
-  }
-
-  goToLogin() {
-    this.router.navigate(['/login']);
+    this.authService.register(values);
   }
 }

@@ -1,15 +1,9 @@
-<ng-container *ngIf="coursesResult$.length > 0; else noResults">
-  <form class="course-search">
-    <input
-      type="email"
-      class="form-control custom-input"
-      placeholder="Input text"
-    />
-    <app-button type="submit" text="Search"></app-button>
-  </form>
+<ng-container
+  *ngIf="coursesResult$.length > 0 || search.length > 0; else noResults"
+>
+  <app-search (search)="onSearch($event)" placeholder="Input text"></app-search>
   <app-course-list [courses]="coursesResult$"></app-course-list>
 </ng-container>
-
 <ng-template #noResults>
   <app-info></app-info>
 </ng-template>

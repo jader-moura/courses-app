@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Course } from '../../../shared/dtos/courses';
+import { CourseProps } from 'src/app/shared/dtos/courses';
 
 @Component({
   selector: 'app-course-list',
@@ -7,7 +7,7 @@ import { Course } from '../../../shared/dtos/courses';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
-  @Input() courses: Course[] = [];
+  @Input() courses: CourseProps[] = [];
   @Input() editable: boolean = false;
 
   constructor() {}

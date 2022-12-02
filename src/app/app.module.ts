@@ -7,18 +7,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CourseModule } from './features/course/course.module';
-import { CoursesModule } from './features/courses/courses.module';
-import { LoginModule } from './features/login/login.module';
-import { RegistrationModule } from './features/registration/registration.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    CourseModule,
-    CoursesModule,
-    LoginModule,
-    RegistrationModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
@@ -26,21 +20,20 @@ import { RegistrationModule } from './features/registration/registration.module'
     NgbModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
   ],
   exports: [
-    CourseModule,
-    CoursesModule,
-    LoginModule,
-    RegistrationModule,
     BrowserModule,
-    AppRoutingModule,
     FontAwesomeModule,
     SharedModule,
     NgbModule,
     FormsModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: 'Window', useValue: window },
+  ],
   bootstrap: [AppComponent, SharedModule],
 })
 export class AppModule {}

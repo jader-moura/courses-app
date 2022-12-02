@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +9,9 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   title = 'login';
 
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   onSubmit(values: any) {
-    console.log(values);
-  }
-
-  goToRegistration() {
-    this.router.navigate(['/registration']);
+    this.authService.login(values);
   }
 }

@@ -4,10 +4,11 @@ import { Components } from './components';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Pipes } from './pipes';
 
 @NgModule({
-  declarations: [Components],
+  declarations: [Components, Pipes],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, FontAwesomeModule],
-  exports: [Components],
+  exports: [Components, Pipes],
 })
 export class SharedModule {}

@@ -14,16 +14,35 @@
         </li>
         <li>
           <span>Duration:</span>
-          {{ courseDuration }}
+          {{ duration | duration }}
         </li>
         <li>
           <span>Created:</span>
-          {{ creationDate }}
+          {{ creationDate | creationDate }}
         </li>
       </ul>
       <div class="course-controller">
         <app-button (onClick)="openCourse()" text="SHOW COURSE"></app-button>
+        <fa-icon
+          *ngIf="isAdmin"
+          [icon]="faPencilAlt"
+          (click)="openCourse('/edit')"
+          class="icon-btn"
+        ></fa-icon>
+        <fa-icon
+          *ngIf="isAdmin"
+          [icon]="faTrash"
+          (click)="openRemoveCourseModal()"
+          class="icon-btn"
+        ></fa-icon>
       </div>
     </div>
   </div>
 </div>
+<app-modal
+  [title]="'Remove course'"
+  [message]="'Do you really want to remove this course?'"
+  [okButtonText]="'Remove Course'"
+  [cancelButtonText]="'Cancel'"
+  (callback)="removeCourse()"
+></app-modal>

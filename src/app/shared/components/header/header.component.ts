@@ -1,6 +1,6 @@
+import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../modal/modal.service';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,23 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  authRoute: boolean = false;
+  authorized: boolean = false;
+  userName: string = '';
 
-  constructor(public modalService: ModalService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private userStoreService: UserStoreService
+  ) {}
 
   ngOnInit(): void {
-    let currentRoute = window.location.href.split('/').pop();
-    if (currentRoute === 'login' || currentRoute === 'registration') {
-      this.authRoute = true;
-    }
+    this.authService.isAuthorized$.subscribe(
+      (data) => (this.authorized = data)
+    );
+    this.userStoreService.name$.subscribe((data) => (this.userName = data));
   }
 
-  login() {
-    console.log('foi');
-    this.modalService.openModal();
-  }
-
-  goHome() {
-    this.router.navigate(['/']);
+  logout() {
+    this.authService.logout();
   }
 }

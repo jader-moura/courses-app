@@ -13,3 +13,16 @@
 .logo {
   cursor: pointer;
 }
+
+article {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333e48;
+}

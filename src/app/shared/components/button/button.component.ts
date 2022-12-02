@@ -10,6 +10,7 @@ export class ButtonComponent implements OnInit {
   @Input() text: string | undefined;
   @Input() link: string | undefined;
   @Input() disabled: boolean = false;
+  @Input() type: string = 'button';
 
   @Output() onClick = new EventEmitter();
 

@@ -76,17 +76,14 @@
       </section>
     </div>
 
-    <section
-      *ngIf="form.get('authors')?.value.length > 0"
-      class="author-wrapper"
-    >
+    <section *ngIf="authorsList.length > 0" class="author-wrapper">
       <label>Authors List</label>
       <div class="authors-list">
         <span
           class="author-name"
-          *ngFor="let author of form.get('authors')?.value; index as i"
+          *ngFor="let author of authorsList; index as i"
         >
-          {{ author }}
+          {{ author.name }}
           <fa-icon
             [icon]="faTimes"
             (click)="removeAuthor(i)"
@@ -118,12 +115,17 @@
           Duration is required
         </span>
       </label>
-      00:00 hours
+
+      {{ form.get("duration")?.value | duration }}
     </section>
 
     <section class="form-sub-group">
       <app-button (onClick)="goBack()" text="Cancel"></app-button>
-      <button type="submit">Create Course</button>
+      <app-button
+        type="submit"
+        [disabled]="form.invalid"
+        text="Create Course"
+      ></app-button>
     </section>
   </form>
 </app-form>

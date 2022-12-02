@@ -1,0 +1,15 @@
+<form
+  class="course-search"
+  #searchForm="ngForm"
+  (ngSubmit)="onSearch(searchForm.value)"
+>
+  <input
+    ngModel
+    type="email"
+    class="form-control custom-input"
+    name="search"
+    #search="ngModel"
+    placeholder="{{ placeholder }}"
+  />
+  <app-button type="submit" text="Search"></app-button>
+</form>
